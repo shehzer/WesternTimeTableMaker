@@ -81,7 +81,7 @@ export class AppComponent {
       document.getElementById('display1').innerHTML = this.makeTable(exists);
     })
   }
-
+//get course and sub and component
   getSubsandCourseandComp(){
     console.log(this.subject);
     console.log(this.course);
@@ -107,7 +107,7 @@ export class AppComponent {
        })
 
   }
-
+//create schedule route
   createSchedule(){
     console.log(this.scheduleName);
     this.classService.createSchedule(this.scheduleName).subscribe((res:any)=>{
@@ -124,7 +124,7 @@ export class AppComponent {
         return Observable.throw(error);
       }
   }
-
+//add a new sched
   add_new(){
     this.info = {
       "subjectCode": this.subject,
@@ -200,12 +200,9 @@ export class AppComponent {
     
         
 
-//    show(ele) {
-//     // GET THE SELECTED VALUE FROM <select> ELEMENT AND SHOW IT.
-//     var msg = document.getElementById('msg');
-//     msg.innerHTML = 'Selected Bird: <b>' + ele.options[ele.selectedIndex].text + '</b> </br>' +
-//         'ID: <b>' + ele.value + '</b>';
-// }
+
+
+//format tables
   makeTable(D){
     var a = '';
     var cols = Object.keys(D[0]);
