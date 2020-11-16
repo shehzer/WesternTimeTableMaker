@@ -35,7 +35,7 @@ export class AppComponent {
       () => console.log('done loading courses')
     )
   }
-
+//get the subject
   getSubject(){
     this.classService.getSubject(this.subject.toUpperCase()).subscribe((res: any) =>{
       console.log(res);
@@ -45,7 +45,7 @@ export class AppComponent {
 
     })
   }
-
+//get subs and course
   getSubsandCourse(){
     console.log(this.subject);
     console.log(this.course);
