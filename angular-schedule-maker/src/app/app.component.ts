@@ -172,6 +172,7 @@ export class AppComponent {
       return Observable.throw(error);
     }
   }
+  //created delete
   delete_All(){
     this.classService.deleteAll().subscribe((res:any)=>{
       console.log(res);
@@ -180,7 +181,7 @@ export class AppComponent {
       console.log("Schedules unable to be deleted")
     }
   }
-
+//created list
   list_Schedules(){
     this.classService.list_Schedules().subscribe((res:any)=>{
       console.log(res);
