@@ -243,7 +243,7 @@ export class AppComponent {
     a += '</tbody></table>';
     return a;
   }
-
+//make table
    makeTable2(D){
     var a = '';
     var cols = Object.keys(D);
