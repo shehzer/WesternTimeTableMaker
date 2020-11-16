@@ -27,7 +27,7 @@ export class AppComponent {
     this.getCourses();
   }
 
-
+//default route , load courses
   getCourses(){
     this.classService.getCourses().subscribe(
       data => {this.data = data},

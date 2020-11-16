@@ -1,9 +1,3 @@
 {
-  "schedules": [
-    {
-      "scheduleName": "&lt;h1&gt;hi&lt;h1&gt;&lt;/h1&gt;&lt;/h1&gt;",
-      "subject": "actursci",
-      "courseName": "1021b"
-    }
-  ]
+  "schedules": []
 }
