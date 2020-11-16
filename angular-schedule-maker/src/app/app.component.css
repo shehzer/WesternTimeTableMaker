@@ -1,3 +1,20 @@
+.entire{
+    background-color: lightgray;
+    border-radius: 15px;
+    margin: auto;
+  border: 3px solid green;
+  padding: 10px;
+}
+.label1{
+    margin-right: 10px;
+}
+.label2{
+    margin-right: 10px;
+}
+.label3{
+    margin-right: 10px;
+}
+
 .list{
     
     width: 100px;
@@ -7,7 +24,7 @@
 } 
 
 .list td {
-    border: black;
+    border-bottom: 1px solid black;
     padding: 8px;
 }
 
@@ -35,8 +52,18 @@
   .but{
       margin-bottom : 10px;
       margin-top: 10x;
+      display: inline;
+    
       
+  }
+
+  .but1{
+      width : 50%
   }
   .space{
       margin-bottom: 10px;
+  }
+  .h4{
+      margin-top: 10px;
+      display: inline;
   }

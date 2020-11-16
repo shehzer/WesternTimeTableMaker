@@ -1,7 +1,9 @@
 <h1>{{title}}</h1>
 <!-- <app-classes></app-classes> -->
+<div class="entire">
 
 
+<!-- 
 <div>
     <label for="Subject"></label>
     <select>
@@ -9,49 +11,64 @@
             {{course.subject}}
         </option>
     </select>
-</div>
+   
+</div> -->
+
+
+
+    <input type="text" name = "subject" [(ngModel)] = "subject" placeholder="Subject" >
+    <button (click)="getSubject()" class = "label1">Search</button>
+
+
+
+    <input type="text" name = "sub&course" [(ngModel)] = "course" id = "course" placeholder="Course Code" >
+   
+    <button (click)=" getSubsandCourse()" class = "label2">Search</button>
+
+
+
+    <input type="text" name = "sub&course&component" [(ngModel)] = "component" id = "component" placeholder="Component" >
+    <button (click)="getSubsandCourseandComp()" class = "label3">Search</button>
+
+   
+    <input type="text" name = "courseList" [(ngModel)] = "scheduleName" id = "scheduleName" placeholder="Create a new schedule" class = "label4">
+    <button (click)="createSchedule()" class = "label4">Create</button>
+
+    
 
 <div>
-    <label for="Subject"></label>
-    <input type="text" name = "subject" [(ngModel)] = "subject" placeholder="Subject">
-    <button (click)="getSubject()">Submit</button>
-</div>
 
-<div>
-    <input type="text" name = "sub&course" [(ngModel)] = "course" id = "course" placeholder="Course Code">
-    <button (click)=" getSubsandCourse()">Submit</button>
-</div>
-
-<div>
-    <input type="text" name = "sub&course&component" [(ngModel)] = "component" id = "component" placeholder="Component">
-    <button (click)="getSubsandCourseandComp()">Submit</button>
-</div>
-
-<div class = "space">
-    <label for="courseList"></label>
-    <input type="text" name = "courseList" [(ngModel)] = "scheduleName" id = "scheduleName" placeholder="Create a new schedule">
-    <button (click)="createSchedule()">Submit</button>
-</div>
-
-<div>
+    <h4 class= "h4">Would you like to add these courses to the schedule: {{scheduleName}}            </h4>
     <button class ="but" (click)="add_new()"> Add a subject and course</button>
+    <h4> Selected Subject code: {{subject}}</h4>
+    <h4> Selected Course code: {{course}}</h4>
 </div>
 
-<div>
+
+    <div>
+        <h4 class = "h4"> Display: {{scheduleName}}          </h4>
     <button class = "but" (click)="display()">Display a specified schedule</button>
-</div>
+   
+    </div>
+    
+    <div>
+        <h4 class = "h4"> Delete: {{scheduleName}}          </h4>
+        <button class = "but" (click)="delete_Schedule()">Delete a specified Schedule</button>
+    </div>
 
-<div >
-    <button class = "but" (click)="delete_Schedule()">Delete a specified Schedule</button>
-</div>
 
-<div >
-    <button class = "but" (click)="delete_All()">Delete all Schedules</button>
-</div>
+  
 
-<div >
-    <button class = "but" (click)="list_Schedules()">list all schedules</button>
-</div>
+
+    <div>
+        <button class = "but1" (click)="delete_All()">Delete all Schedules</button>
+
+
+
+        <button class = "but1" (click)="list_Schedules()">list all schedules</button>
+    </div>
+    
+
 
 <!-- <select id="sel" (click)="show()">
     <option value="">-- Select --</option>
@@ -63,11 +80,13 @@
 <ul id= "list">
 </ul>
 <div id="display"></div>
-<table id = "display1" class = "list"></table>
+<table id = "display1" class = "list">
+    
+</table>
 
-<!-- <ul>
-    <li *ngFor="let course of data">{{course.subject}}</li>
-  </ul> -->
+
+</div>
+
 
 
 

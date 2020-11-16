@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ClassServiceService} from './class-service.service';
 import { Observable, of } from 'rxjs';
 
@@ -40,6 +40,9 @@ export class AppComponent {
     this.classService.getSubject(this.subject.toUpperCase()).subscribe((res: any) =>{
       console.log(res);
       document.getElementById('display1').innerHTML = this.makeTable(res);    
+      console.log(this.makeTable(res));
+      
+
     })
   }
 
@@ -109,6 +112,12 @@ export class AppComponent {
     console.log(this.scheduleName);
     this.classService.createSchedule(this.scheduleName).subscribe((res:any)=>{
       console.log(res);
+      if(res.status ===404){
+        document.getElementById('display').textContent = "Name exists, please use a new name!"
+      }
+      else{
+        document.getElementById('display').textContent = "Schedule"+ this.scheduleName + "has been created"
+      }
     }),
       error => {
         console.error("Error creating schedule!");
@@ -124,10 +133,12 @@ export class AppComponent {
     console.log(this.info);
     console.log(this.scheduleName);
     this.classService.add_new(this.scheduleName, this.info).subscribe((res:any)=>{
-      console.log(res);
+      console.log(res.status);
+
     }),
     error =>{
       document.getElementById('display').textContent = "Name Does Not Exists!"
+      return document.getElementById('display').textContent = "Name doesn't exist!"
     }
   }
 
@@ -147,8 +158,13 @@ export class AppComponent {
   }
 
   delete_Schedule(){
+    document.getElementById('display').textContent = `Schedule ${this.scheduleName} deleted`
     this.classService.delete_Schedule(this.scheduleName).subscribe((res:any)=>{
+      if(res.status === 404){
+        document.getElementById('display').textContent = "Schedule Name does not exist!"
+      }
       console.log(res);
+    
     }),
     error => {
       console.log("Schedule Not deleted");
@@ -167,29 +183,21 @@ export class AppComponent {
 
   list_Schedules(){
     this.classService.list_Schedules().subscribe((res:any)=>{
-      this.list = res;
       console.log(res);
-      console.log(this.list);
-      if(res.length == 0){
-        document.getElementById('display').textContent = "You have no Schedules!!!"
+      if(res.length ==0){
+        document.getElementById('display').textContent = "No schedules exist"
         document.getElementById('display1').innerHTML = this.makeTable2(res);
+
       }
       else{
         document.getElementById('display1').innerHTML = this.makeTable(res);
       }
+    
+      
     })
     
   }
-    show(){
-      console.log(this.list);
-      var ele = document.getElementById('sel');
-        for (var i = 0; i < 10; i++) {
-          console.log(this.list[i]["Schedule name"])
-            // POPULATE SELECT ELEMENT WITH JSON.
-            ele.innerHTML = ele.innerHTML +
-                '<option value="' + this.list[i]["Schedule name"] + '">' + '</option>';
-        }
-    }
+    
         
 
 //    show(ele) {
@@ -201,7 +209,7 @@ export class AppComponent {
   makeTable(D){
     var a = '';
     var cols = Object.keys(D[0]);
-    a += '<table><thead><tr>';
+    a += '<table class = "list"><thead><tr>';
     for(var j=0;j<cols.length;j++) {
       a+= `<th>${cols[j]}</th>`;
     }
@@ -223,14 +231,14 @@ export class AppComponent {
     var cols = Object.keys(D[0]);
     a += '<table><thead><tr>';
     for(var j=0;j<cols.length;j++) {
-      a+= `<th>${cols[j]}</th>`;
+      a+= `<th class = "list">${cols[j]}</th>`;
     }
-    a += '</tr></thead><tbody>';
+    a += '</tr class = "list"></thead><tbody>';
   
     for(var i=0;i<D.length; i=2) {
       a += '<tr>';
       for(j=0;j<cols.length;j++) {
-        a += `<td>${D[0][cols[j]]}</td>`;
+        a += `<td class = "list">${D[0][cols[j]]}</td>`;
       }
       a += '</tr>';
     }

@@ -1,14 +1,9 @@
 {
   "schedules": [
     {
-      "scheduleName": "yeah",
+      "scheduleName": "&lt;h1&gt;hi&lt;h1&gt;&lt;/h1&gt;&lt;/h1&gt;",
       "subject": "actursci",
       "courseName": "1021b"
-    },
-    {
-      "scheduleName": "INI",
-      "subject": "ACTURSCI",
-      "courseName": "1021B"
     }
   ]
 }

@@ -5,6 +5,7 @@ const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
+var escapeHTML = require('escape-html');
 db.defaults({schedules:[]}).write();
 //const expAutoSan = require('express-autosanitizer');
 const expressSanitizer = require('express-sanitizer');
@@ -74,8 +75,8 @@ router.route('/courses',)  //api/courses
 
     
     router.get('/subject/:subject/:code/:component?', (req, res) => { //api/subject/:/:/:?
-        const sub = data.filter(c => c.subject.toString().toUpperCase() === req.sanitize(req.params.subject.toString().toUpperCase()));
-        const course_code = sub.filter(c => c.catalog_nbr.toString().toUpperCase() === req.sanitize(req.params.code.toString().toUpperCase()));
+        var sub = data.filter(c => c.subject.toString().toUpperCase() === req.sanitize(req.params.subject.toString().toUpperCase()));
+        var course_code = sub.filter(c => c.catalog_nbr.toString().toUpperCase() === req.sanitize(req.params.code.toString().toUpperCase()));
         if (sub.length===0 || course_code.length===0) {
             res.status(404).send("Subject" + sub + " was not found, or" + course_code + " was not found");
         }
@@ -89,7 +90,9 @@ router.route('/courses',)  //api/courses
 
 //task 4 creates schedule
 router.put('/schedule/:name', (req,res) =>{
-    const name = req.sanitize(req.params.name);
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
+    escape(name);
     //check if the name already exists, if so then return error
     for(var i=0; i<db.getState().schedules.length;i++){
         if(db.getState().schedules[i].scheduleName===name){
@@ -107,8 +110,10 @@ router.put('/schedule/:name', (req,res) =>{
 //task 5 adds course to given schedule
 
 router.put('/create/schedule/:name', (req,res)=>{
-    const name = req.sanitize(req.params.name);
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
     const schedule = req.body;
+    
     let sub = req.sanitize(schedule.subjectCode)
     let cour = req.sanitize(schedule.courseCode)
     for(let i =0; i<db.getState().schedules.length; i++){
@@ -128,7 +133,8 @@ router.put('/create/schedule/:name', (req,res)=>{
 router.route('/schedules/:name/',)
 
     .get((req,res)=>{
-    const name = req.sanitize(req.params.name);
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
     let display = '';
     for(let i = 0; i<db.getState().schedules.length; i++){
         if(db.getState().schedules[i].scheduleName===name){
@@ -147,7 +153,8 @@ router.route('/schedules/:name/',)
 
 })
     .post((req,res)=>{
-    const sch_name = req.sanitize(req.params.name);
+    var sch_name = req.sanitize(req.params.name);
+    sch_name = escapeHTML(sch_name)
     for(let i = 0; i<db.getState().schedules.length; i++){
         if(db.getState().schedules[i].scheduleName===sch_name){
             db.get("schedules").remove({scheduleName: sch_name}).write();
