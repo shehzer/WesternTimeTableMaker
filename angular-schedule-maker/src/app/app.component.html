@@ -1,12 +1,47 @@
 <h1>{{title}}</h1>
-<!-- <input type ="text" (keyup) = "onNameKeyUp($event)">
-<button (click) = "getSubject()">Get Subject</button>
-
-<div *ngFor="let message of messages | async">
-
-{{message.subject}}
+<!-- <app-classes></app-classes> -->
 
 
+<div>
+    <label for="Subject"></label>
+    <select>
+        <option *ngFor="let course of data" [value]="course.subject">
+            {{course.subject}}
+        </option>
+    </select>
+</div>
+
+<div>
+    <label for="Subject"></label>
+    <input type="text" name = "subject" [(ngModel)] = "subject" placeholder="Subject">
+    <button (click)="getSubject()">Submit</button>
+</div>
+
+<div>
+    <input type="text" name = "sub&course" [(ngModel)] = "course" id = "course" placeholder="Course Code">
+    <button (click)=" getSubsandCourse()">Submit</button>
+</div>
+
+<div>
+    <input type="text" name = "sub&course&component" [(ngModel)] = "component" id = "component" placeholder="Component">
+    <button (click)="getSubsandCourseandComp()">Submit</button>
+</div>
 
 
-</div> -->
+<ul id= "list">
+</ul>
+<div id="display"></div>
+
+
+<table id = "display1" class = list></table>
+
+<!-- <ul>
+    <li *ngFor="let course of data">{{course.subject}}</li>
+  </ul> -->
+
+
+
+
+
+
+<!-- Displays all subjects -->

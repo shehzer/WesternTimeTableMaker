@@ -34,7 +34,7 @@ router.use(expressSanitizer());
 
 
 //Task 1
-router.route('/courses',)
+router.route('/courses',)  //api/courses
     .get((req,res)=>{
         const node= data.map(function(d){
             var info = {"subject": d.subject,
@@ -49,7 +49,7 @@ router.route('/courses',)
 
    
 //Task 2
-    router.route('/:data_subject',)
+    router.route('/:data_subject',) //api/id:
 
     .get((req,res) =>{
         const subject = req.sanitize(req.params.data_subject);
@@ -73,7 +73,7 @@ router.route('/courses',)
     })
 
     
-    router.get('/subject/:subject/:code/:component?', (req, res) => {
+    router.get('/subject/:subject/:code/:component?', (req, res) => { //api/subject/:/:/:?
         const sub = data.filter(c => c.subject.toString().toUpperCase() === req.sanitize(req.params.subject.toString().toUpperCase()));
         const course_code = sub.filter(c => c.catalog_nbr.toString().toUpperCase() === req.sanitize(req.params.code.toString().toUpperCase()));
         if (sub.length===0 || course_code.length===0) {
@@ -87,7 +87,7 @@ router.route('/courses',)
         }
     });
 
-//task 4
+//task 4 creates schedule
 router.put('/schedule/:name', (req,res) =>{
     const name = req.sanitize(req.params.name);
     //check if the name already exists, if so then return error
@@ -104,7 +104,7 @@ router.put('/schedule/:name', (req,res) =>{
     res.status(200).send("The schedule " + name + " has been created");
 }); 
 
-//task 5
+//task 5 adds course to given schedule
 
 router.put('/create/schedule/:name', (req,res)=>{
     const name = req.sanitize(req.params.name);

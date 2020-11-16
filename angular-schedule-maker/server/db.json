@@ -1,3 +1,9 @@
 {
-  "schedules": []
+  "schedules": [
+    {
+      "scheduleName": "undefined",
+      "subject": [],
+      "courseName": []
+    }
+  ]
 }
