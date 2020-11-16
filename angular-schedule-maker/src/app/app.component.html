@@ -27,6 +27,23 @@
     <button (click)="getSubsandCourseandComp()">Submit</button>
 </div>
 
+<div class = "space">
+    <label for="courseList"></label>
+    <input type="text" name = "courseList" [(ngModel)] = "scheduleName" id = "scheduleName" placeholder="Create a new schedule">
+    <button (click)="createSchedule()">Submit</button>
+</div>
+
+<div>
+    <button class ="but" (click)="add_new()"> Add a subject and course</button>
+</div>
+
+<div>
+    <button class = "but" (click)="display()">Display a specified schedule</button>
+</div>
+
+<div >
+    <button class = "but" (click)="delete_Schedule()">Delete a specified Schedule</button>
+</div>
 
 <ul id= "list">
 </ul>

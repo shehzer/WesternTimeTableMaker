@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
+import { error } from 'protractor';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,6 +16,7 @@ export class ClassServiceService {
   private root = 'http://localhost:4000/api/';
   constructor(private http: HttpClient) { }
   public data;
+  public handleError;
 
 
 
@@ -26,12 +28,6 @@ export class ClassServiceService {
     return this.http.get(`${this.root}/${subject}`);
   }
   
-  createSchedule(schedule){
-    let body = JSON.stringify(schedule);
-    return this.http.put(this.root + '/schedule/' + schedule.name, body, httpOptions );
-    //'/schedule/:name'
-  }
-
   getSubsandCourse(sub,course){
     return this.http.get( `${this.root}/subject/${sub}/${course}`);
   }
@@ -40,6 +36,18 @@ export class ClassServiceService {
     return this.http.get( `${this.root}/subject/${sub}/${course}/?${component}`);
   }
 
+  createSchedule(schedule){
+    let body = {};
+    return this.http.put(this.root + `schedule/${schedule}`, body, httpOptions );
+    //'/schedule/:name'
+  }
+
+  add_new(name:string, info:object){
+    return this.http.put(`${this.root}/create/schedule/${name}`,info,httpOptions);
+  }
+  display(schedule){
+    return this.http.get(`${this.root}/schedules/${schedule}`)
+  }
   
   
 

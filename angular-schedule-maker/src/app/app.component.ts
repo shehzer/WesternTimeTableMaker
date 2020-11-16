@@ -14,6 +14,8 @@ export class AppComponent {
   public subject;
   public course;
   public component;
+  public scheduleName;
+  public info = {};
   constructor(private classService: ClassServiceService){ }
 
   
@@ -80,35 +82,66 @@ export class AppComponent {
     console.log(this.course);
     console.log(this.component);
     this.classService.getSubsandCourseandComp(this.subject.toUpperCase(), this.course.toUpperCase(), this.component.toUpperCase()).subscribe((res:any)=>{
-      var exists = 
-                  res.map(function(d){
-                    var i=0, j=0
-                    var info = {
-                        "subject": d.subject,
-                        "catalog_nbr": d.catalog_nbr,
-                        "ssr_component": res[i].course_info[j].ssr_component,
-                    }
-                    i++;
-                    j++;
-                    return info;
-                  });
+      if(this.component ==='LEC'||'lec'||'lab'||'LAB'){
+        var exists = res.map(function(d){
+          var i=0, j=0
+          var info = {
+              "subject": d.subject,
+              "catalog_nbr": d.catalog_nbr,
+              "ssr_component": res[i].course_info[j].ssr_component,
+          }
+          i++;
+          j++;
+          return info;
+        });
+
+      }
+                  
                   document.getElementById('display1').innerHTML = this.makeTable(exists);
 
        })
 
   }
 
-  createSchedule(name){
-    this.classService.createSchedule(name).subscribe(
-      data => {
-        this.getCourses();
-        return true;
-      },
+  createSchedule(){
+    console.log(this.scheduleName);
+    this.classService.createSchedule(this.scheduleName).subscribe((res:any)=>{
+      console.log(res);
+    }),
       error => {
         console.error("Error creating schedule!");
         return Observable.throw(error);
       }
-    )
+  }
+
+  add_new(){
+    this.info = {
+      "subjectCode": this.subject,
+      "courseCode": this.course
+    }
+    console.log(this.info);
+    console.log(this.scheduleName);
+    this.classService.add_new(this.scheduleName, this.info).subscribe((res:any)=>{
+      console.log(res);
+    }),
+    error =>{
+      document.getElementById('display').textContent = "Name Does Not Exists!"
+    }
+  }
+
+  display(){
+    this.classService.display(this.scheduleName).subscribe((res:any)=>{
+      let result = Object.keys(res).map(e=>{
+        var info = {
+          "subject": res.subject,
+          "course": res.course
+        };
+        return info;
+      });
+      console.log(result[0]);
+      document.getElementById('display1').innerHTML = this.makeTable1(result);
+      document.getElementById("display").textContent = `Schedule: ${this.scheduleName}`;
+    })
   }
 
   makeTable(D){
@@ -124,6 +157,26 @@ export class AppComponent {
       a += '<tr>';
       for(j=0;j<cols.length;j++) {
         a += `<td>${D[i][cols[j]]}</td>`;
+      }
+      a += '</tr>';
+    }
+    a += '</tbody></table>';
+    return a;
+  }
+
+  makeTable1(D){
+    var a = '';
+    var cols = Object.keys(D[0]);
+    a += '<table><thead><tr>';
+    for(var j=0;j<cols.length;j++) {
+      a+= `<th>${cols[j]}</th>`;
+    }
+    a += '</tr></thead><tbody>';
+  
+    for(var i=0;i<D.length; i=2) {
+      a += '<tr>';
+      for(j=0;j<cols.length;j++) {
+        a += `<td>${D[0][cols[j]]}</td>`;
       }
       a += '</tr>';
     }
