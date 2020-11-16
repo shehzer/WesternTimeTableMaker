@@ -1,45 +1,14 @@
 {
   "schedules": [
     {
-      "scheduleName": "undefined",
-      "subject": [],
-      "courseName": []
-    },
-    {
-      "scheduleName": "yo",
-      "subject": [],
-      "courseName": []
-    },
-    {
-      "scheduleName": "YO",
-      "subject": [],
-      "courseName": []
-    },
-    {
-      "scheduleName": "yes",
-      "subject": [],
-      "courseName": []
-    },
-    {
-      "scheduleName": "ye",
-      "subject": [],
-      "courseName": []
-    },
-    {
-      "scheduleName": "shehzer"
-    },
-    {
-      "scheduleName": "la"
-    },
-    {
-      "scheduleName": "YA",
-      "subject": "ACTURSCI",
-      "courseName": "1021B"
-    },
-    {
-      "scheduleName": "ahah",
+      "scheduleName": "yeah",
       "subject": "actursci",
       "courseName": "1021b"
+    },
+    {
+      "scheduleName": "INI",
+      "subject": "ACTURSCI",
+      "courseName": "1021B"
     }
   ]
 }

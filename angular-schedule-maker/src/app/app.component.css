@@ -2,11 +2,16 @@
     
     width: 100px;
     border: '1px solid black';
-    background-color: lightpink;
+    background-color: green;
+
+}
+
+.list td, .list th{
+    background-color: orange;
 }
 
 .list td, .list th {
-    border: 1px solid black;
+    border: 1px solid blue;
     padding: 8px;
   }
   
@@ -33,4 +38,4 @@
   }
   .space{
       margin-bottom: 10px;
-    }
+  }

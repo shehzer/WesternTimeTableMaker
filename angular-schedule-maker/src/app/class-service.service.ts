@@ -49,8 +49,20 @@ export class ClassServiceService {
     return this.http.get(`${this.root}/schedules/${schedule}`)
   }
   
+  delete_Schedule(schedule){
+    let body = {}
+    return this.http.post(`${this.root}/schedules/${schedule}`,body, httpOptions)
+  }
   
+  deleteAll(){
+    let body = {}
+    return this.http.post(`${this.root}`+`deleteall/schedules`,body,httpOptions)
 
+  }
+
+  list_Schedules(){
+    return this.http.get(`${this.root}/show/schedule`)
+  }
 
 
 

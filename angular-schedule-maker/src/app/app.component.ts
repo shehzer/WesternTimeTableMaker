@@ -16,10 +16,12 @@ export class AppComponent {
   public component;
   public scheduleName;
   public info = {};
+  public list;
+  
   constructor(private classService: ClassServiceService){ }
 
   
-
+  
   
   ngOnInit(){
     this.getCourses();
@@ -144,6 +146,58 @@ export class AppComponent {
     })
   }
 
+  delete_Schedule(){
+    this.classService.delete_Schedule(this.scheduleName).subscribe((res:any)=>{
+      console.log(res);
+    }),
+    error => {
+      console.log("Schedule Not deleted");
+      document.getElementById('display').textContent = "Error, please try again!"
+      return Observable.throw(error);
+    }
+  }
+  delete_All(){
+    this.classService.deleteAll().subscribe((res:any)=>{
+      console.log(res);
+    }),
+    error => {
+      console.log("Schedules unable to be deleted")
+    }
+  }
+
+  list_Schedules(){
+    this.classService.list_Schedules().subscribe((res:any)=>{
+      this.list = res;
+      console.log(res);
+      console.log(this.list);
+      if(res.length == 0){
+        document.getElementById('display').textContent = "You have no Schedules!!!"
+        document.getElementById('display1').innerHTML = this.makeTable2(res);
+      }
+      else{
+        document.getElementById('display1').innerHTML = this.makeTable(res);
+      }
+    })
+    
+  }
+    show(){
+      console.log(this.list);
+      var ele = document.getElementById('sel');
+        for (var i = 0; i < 10; i++) {
+          console.log(this.list[i]["Schedule name"])
+            // POPULATE SELECT ELEMENT WITH JSON.
+            ele.innerHTML = ele.innerHTML +
+                '<option value="' + this.list[i]["Schedule name"] + '">' + '</option>';
+        }
+    }
+        
+
+//    show(ele) {
+//     // GET THE SELECTED VALUE FROM <select> ELEMENT AND SHOW IT.
+//     var msg = document.getElementById('msg');
+//     msg.innerHTML = 'Selected Bird: <b>' + ele.options[ele.selectedIndex].text + '</b> </br>' +
+//         'ID: <b>' + ele.value + '</b>';
+// }
   makeTable(D){
     var a = '';
     var cols = Object.keys(D[0]);
@@ -184,7 +238,25 @@ export class AppComponent {
     return a;
   }
 
-
+   makeTable2(D){
+    var a = '';
+    var cols = Object.keys(D);
+    a += '<table><thead><tr>';
+    for(var j=0;j<cols.length;j++) {
+      a+= `<th>${cols[j]}</th>`;
+    }
+    a += '</tr></thead><tbody>';
+  
+    for(var i=0;i<D.length; i=2) {
+      a += '<tr>';
+      for(j=0;j<cols.length;j++) {
+        a += `<td>${D[0][cols[j]]}</td>`;
+      }
+      a += '</tr>';
+    }
+    a += '</tbody></table>';
+    return a;
+  }
 
 
   
