@@ -24,17 +24,14 @@ export class AppComponent {
   
   
   ngOnInit(){
-    this.getCourses();
   }
 
 //default route , load courses
   getCourses(){
-    this.classService.getCourses().subscribe(
-      data => {this.data = data},
-      err => console.error(err),
-      () => console.log('done loading courses')
-    )
-  }
+    this.classService.getCourses().subscribe((res:any) => {
+    document.getElementById('display1').innerHTML = this.makeTable(res);  
+  })
+}
 //get the subject
   getSubject(){
     this.classService.getSubject(this.subject.toUpperCase()).subscribe((res: any) =>{
