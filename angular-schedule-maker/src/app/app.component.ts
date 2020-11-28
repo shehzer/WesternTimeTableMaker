@@ -17,6 +17,10 @@ export class AppComponent {
   public scheduleName;
   public info = {};
   public list;
+  // public pageVal=1;
+  // public pageOfCourses = [];
+  // public gotten = false;
+  // public courses = [];
   
   constructor(private classService: ClassServiceService){ }
 
@@ -24,17 +28,45 @@ export class AppComponent {
   
   
   ngOnInit(){
-    this.getCourses();
+    
+
   }
 
 //default route , load courses
   getCourses(){
-    this.classService.getCourses().subscribe(
-      data => {this.data = data},
-      err => console.error(err),
-      () => console.log('done loading courses')
-    )
+      this.classService.getCourses().subscribe((res:any) => {
+      document.getElementById('display1').innerHTML = this.makeTable(res);  
+    })
   }
+
+  // getCourses(){
+  //   this.gotten = true;
+  //   this.classService.getCourses().toPromise()
+  //   .then(data => {
+  //     this.courses.push(data)
+  //   }) .then(data => {
+  //     this.onChangePage();
+  //   })
+  //   console.log(this.courses);
+  // }
+
+  // onChangePage(): void{
+  //   const pageOfCourses = [];
+  //   const maxVal = this.pageVal * 10 - 1 ;
+  //   const minVal = maxVal - 9;
+  //   for (let i = minVal; i <= maxVal; i++){
+  //     pageOfCourses.push(this.courses[i]);
+  //   }
+  //   this.pageOfCourses = pageOfCourses;
+  // }
+  // increasePageNum(): void{
+  //   this.pageVal++;
+  // }
+  // decreasePageNum(): void{
+  //   if (this.pageVal >= 1){
+  //     this.pageVal--;
+  //   }
+  // }
 //get the subject
   getSubject(){
     this.classService.getSubject(this.subject.toUpperCase()).subscribe((res: any) =>{
