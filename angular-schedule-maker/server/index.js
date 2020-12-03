@@ -12,7 +12,7 @@ const PORT = 4000;
 //import Routes
 const authRoute = require('./routes/auth');
 const publicRoute = require('./routes/public');
-
+const privateRoute = require('./routes/private');
 dotenv.config();
 
 //Connect to DB
@@ -29,6 +29,7 @@ app.use(express.json());
 //Route MiddleWare
 app.use('/api/user', authRoute);
 app.use('/api/public', publicRoute);
+app.use('/api/secure', privateRoute);
 
 // Setup middleware to do logging
 app.use((req, res, next) =>{
