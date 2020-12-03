@@ -4,8 +4,14 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const PORT = 4000;
 
+
+
+
+
+
 //import Routes
 const authRoute = require('./routes/auth');
+const publicRoute = require('./routes/public');
 
 dotenv.config();
 
@@ -19,14 +25,20 @@ mongoose.connect(process.env.DB_CONNECT,{ useNewUrlParser: true },() =>
 //Middleware for body parser
 app.use(express.json());
 
+
 //Route MiddleWare
 app.use('/api/user', authRoute);
+app.use('/api/public', publicRoute);
 
 // Setup middleware to do logging
 app.use((req, res, next) =>{
     console.log(req.method + " request for " + req.url );
     next(); 
 })
+
+//###########################Courses################################
+
+
 
 
 

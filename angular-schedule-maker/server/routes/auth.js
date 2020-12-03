@@ -42,7 +42,7 @@ const {registerValidation, loginValidation} = require('../validation');
 
         //Check if email exists
         const user = await User.findOne({email: req.body.email});
-        if(!user) return res.status(400).send('Email or password is incorrect');
+        if(!user) return res.status(400).send('Email ');
 
         //Password is correct
         const valid_pass = await bcrypt.compare(req.body.password, user.password);
@@ -53,6 +53,15 @@ const {registerValidation, loginValidation} = require('../validation');
         const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
         res.header('auth-token', token).send(token);
     });
+
+    function authUser (req,res,next){
+        if(req.user == null){
+            res.status(403)
+            return res.send('You must sign in to access this page');
+        }
+        next()
+    }
+
 
 
 module.exports = router;
