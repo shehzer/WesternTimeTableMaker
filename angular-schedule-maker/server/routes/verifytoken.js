@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 
 //Middleware function for private routes
-function auth(req,res,next){
+module.exports = function (req,res,next){
     //check if it has token
     const token = req.header('auth-token');
     if(!token) return res.status(401).send('Access Denied');

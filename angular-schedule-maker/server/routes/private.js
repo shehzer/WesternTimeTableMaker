@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const verify = require('./verifytoken');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
@@ -6,14 +7,14 @@ const db = low(adapter);
 var escapeHTML = require('escape-html');
 db.defaults({schedules:[]}).write();
 const expressSanitizer = require('express-sanitizer');
-var data = require('../data.json');
+
 
 router.use(expressSanitizer());
 
 
 //ability to create up to 20 named lists of courses that contain unique name, a description, a list of subject and catalog pairs
 //task 4 creates schedule
-router.put('/schedule/:name', (req,res) =>{
+router.put('/schedule/:name', verify, (req,res) =>{
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
     escape(name);
@@ -33,7 +34,7 @@ router.put('/schedule/:name', (req,res) =>{
 
 //task 5 adds course to given schedule
 
-router.put('/create/schedule/:name', (req,res)=>{
+router.put('/create/schedule/:name', verify, (req,res)=>{
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
     const schedule = req.body;
@@ -53,7 +54,7 @@ router.put('/create/schedule/:name', (req,res)=>{
 });
 
 
-router.route('/schedules/:name/',)
+router.route('/schedules/:name/')
 
     .get((req,res)=>{
     var name = req.sanitize(req.params.name);
