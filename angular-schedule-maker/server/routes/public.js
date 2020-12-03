@@ -64,4 +64,26 @@ router.route('/:data_subject',) //api/id:
         }
     });
 
+
+    //Task 8 , Show public lists
+router.get('/show/schedule', (req,res)=>{
+    let scheduleList=[];
+    for(let i = 0; i<db.getState().schedules.length; i++){
+        var size = `${db.getState().schedules[i].courseName.length-4}`
+        if(size <0){
+            size =0;
+        }
+        if(`${db.getState().schedules[i].courseName.length}` ==4){
+            size =1;
+        }
+        console.log()
+        if(`${db.getState().schedules[i].flag}` == "public"){
+            scheduleList.push({"Schedule name": `${db.getState().schedules[i].scheduleName}`, "Number courses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`})
+        }
+        
+        //scheduleList.push(`Schedule name:${db.getState().schedules[i].scheduleName}, Number of courses:${db.getState().schedules[i].courseName.length}`)
+    }
+    res.send(scheduleList);
+});
+
     module.exports = router;

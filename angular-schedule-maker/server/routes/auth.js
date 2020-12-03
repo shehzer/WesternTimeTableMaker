@@ -50,18 +50,10 @@ const {registerValidation, loginValidation} = require('../validation');
         if(!valid_pass) return res.status(400).send('Invalid Password');
 
         //Create jwt token
-        const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+        const token = jwt.sign({_id: user._id,
+                                _username: user.name}, process.env.TOKEN_SECRET);
         res.header('auth-token', token).send(token);
     });
-
-    function authUser (req,res,next){
-        if(req.user == null){
-            res.status(403)
-            return res.send('You must sign in to access this page');
-        }
-        next()
-    }
-
 
 
 module.exports = router;
