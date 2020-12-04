@@ -13,12 +13,12 @@ const httpOptions = {
 export class AuthService {
 
   authUrl = "http://localhost:4000/api/user/";
+  registerUrl = "http://localhost:4000/api/user/"
 
   constructor(private http: HttpClient) { }
 
   login(model: any){
 
-    let body = {}
     return this.http.post(`${this.authUrl}login`,model, httpOptions)
     // return this.http.post(this.authUrl + 'login', model).pipe(
     //   map((response:any) =>{
@@ -26,6 +26,10 @@ export class AuthService {
     //     console.log(user);
     //   })
     // )
+  }
+
+  register(model:any){
+    return this.http.post(`${this.authUrl}register`, model, httpOptions);
   }
 
 
