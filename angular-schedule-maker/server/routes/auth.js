@@ -2,7 +2,7 @@ const router = require('express').Router()
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {registerValidation, loginValidation} = require('../validation');
+const {registerValidation, loginValidation, adminValidation} = require('../validation');
 
 
 
@@ -24,7 +24,8 @@ const {registerValidation, loginValidation} = require('../validation');
         const user = new User({
             name: req.body.name,
             email: req.body.email,
-            password: hashPass
+            password: hashPass,
+            role: req.body.role
         });
         try{
             const savedUser = await user.save();
@@ -51,9 +52,12 @@ const {registerValidation, loginValidation} = require('../validation');
 
         //Create jwt token
         const token = jwt.sign({_id: user._id,
-                                _username: user.name}, process.env.TOKEN_SECRET);
+                                _username: user.name,
+                                _role: user.role}, process.env.TOKEN_SECRET);
         res.header('auth-token', token).json(token);
     });
+
+   
 
 
 module.exports = router;
