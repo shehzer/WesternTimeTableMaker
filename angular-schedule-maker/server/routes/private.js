@@ -7,7 +7,8 @@ const db = low(adapter);
 var escapeHTML = require('escape-html');
 db.defaults({schedules:[]}).write();
 const expressSanitizer = require('express-sanitizer');
-const User = require('../model/User');
+var data = require('../data.json');
+
 
 
 router.use(expressSanitizer());
@@ -17,7 +18,6 @@ router.use(expressSanitizer());
 //task 4 creates schedule
 router.put('/schedule/:name', verify, (req,res) =>{
     var name = req.sanitize(req.params.name);
-    var user = User.findOne({email: req.body.email});
     name = escapeHTML(name);
     escape(name);
     //check if the name already exists, if so then return error
@@ -37,8 +37,8 @@ router.put('/schedule/:name', verify, (req,res) =>{
 }); 
 
 //task 5 adds course to given schedule
+router.put('/create/schedule/:name', (req, res) => {
 
-router.put('/create/schedule/:name', verify, (req,res)=>{
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
     const schedule = req.body;
@@ -46,27 +46,44 @@ router.put('/create/schedule/:name', verify, (req,res)=>{
     let sub = req.sanitize(schedule.subjectCode)
     let cour = req.sanitize(schedule.courseCode)
     let flag = req.sanitize(schedule.flag)
-    
-    for(let i =0; i<db.getState().schedules.length; i++){
-        if(db.getState().schedules[i].scheduleName===name){
-            db.getState().schedules[i].subject = sub;
-            db.getState().schedules[i].courseName = cour;
-            db.getState().schedules[i].flag = flag;
-            // db.getState().schedules[i].creator = user;
-            // db.getState().schedules[i].creator = req.user;
-            db.update('schedules').write()
-            res.status(200).send("Added")
+    let subject = JSON.parse(`"${sub}"`); 
+    let course = JSON.parse(`"${cour}"`); 
+
+    for (let i = 0; i < db.getState().schedules.length; i++) {
+        if (db.getState().schedules[i].scheduleName === name ) {
+            for (let k = 0; k < db.getState().schedules[i].courseName.length; k++) {
+                if (db.getState().schedules[i].courseName[k].toUpperCase() === 
+                    course.toUpperCase() && 
+                    db.getState().schedules[i].subject[k].toUpperCase() === 
+                    subject.toUpperCase()) {
+                    db.getState().schedules[i].courseName = course;
+                    db.getState().schedules[i].subject = subject;
+                    db.getState().schedules[i].flag = flag;
+                    db.update('schedules').write();
+                    console.log("overwritten")
+                    res.status(200).send("Overwrite");
+                    return;
+                }
+            }
+            
+            console.log("hi" + db.getState().schedules[i].subject);
+            db.getState().schedules[i].subject.push(subject);
+            db.getState().schedules[i].courseName.push(course);
+            db.update('schedules').write();
+            res.status(200).send("Added");
             return;
         }
     }
-    res.status(404).send('ERROR');
+
+    res.status(404).send("Name does not exist");
 });
 
 //Task 8
 router.get('/show/schedule', (req,res)=>{
     let scheduleList=[];
     for(let i = 0; i<db.getState().schedules.length; i++){
-        var size = `${db.getState().schedules[i].courseName.length-4}`
+        console.log(db.getState().schedules[i].courseName.length)
+        var size = `${db.getState().schedules[i].courseName.length}`
         if(size <0){
             size =0;
         }
@@ -85,20 +102,24 @@ router.route('/schedules/:name/')
     .get((req,res)=>{
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
-    let display = '';
+    let display = [];
     for(let i = 0; i<db.getState().schedules.length; i++){
         if(db.getState().schedules[i].scheduleName===name){
-            first =db.getState().schedules[i].courseName
-            second = db.getState().schedules[i].subject;
-            creator = db.getState().schedules[i].creator;
-            display = {
-          
-                    "subject": second,
-                    "course" : first,
-                    "creator" : creator
-                
-            };
-            res.send(display)
+            for(let k=0; k<db.getState().schedules[i].courseName.length;k++){
+                let showC = db.getState().schedules[i].courseName[k];
+                console.log(showC)
+                let showS = db.getState().schedules[i].subject[k];
+                console.log(showS)
+                const course = data.filter(a => a.subject.toString().toLowerCase()=== req.sanitize(showS.toString().toLowerCase()));
+                console.log(course)
+                const final = course.filter(a => a.catalog_nbr.toString().toUpperCase() === req.sanitize(showC.toString().toUpperCase()));
+                console.log(final)
+                display.push(final);
+
+            }
+            res.send(display);
+            return;
+           
         }
     }
     res.status(404).send("Error")

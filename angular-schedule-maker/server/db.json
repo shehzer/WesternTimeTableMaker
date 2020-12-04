@@ -1,30 +1,24 @@
 {
   "schedules": [
     {
-      "scheduleName": "jorge3",
-      "subject": [],
-      "courseName": [],
-      "flag": "private",
-      "creator": "5fc878cabaa5df163d519880"
-    },
-    {
-      "scheduleName": "jorge1",
-      "subject": "ACTURSCI12",
-      "courseName": "1021b",
-      "flag": "public",
-      "creator": "joeesph"
-    },
-    {
-      "scheduleName": "jorge9",
-      "subject": [],
-      "courseName": [],
+      "scheduleName": "jorge08",
+      "subject": "SE",
+      "courseName": "2052",
       "flag": "private",
       "creator": "joeesph"
     },
     {
-      "scheduleName": "jorge10",
-      "subject": [],
-      "courseName": [],
+      "scheduleName": "jorge",
+      "subject": [
+        "Actursci",
+        "Actursci",
+        "Actursci"
+      ],
+      "courseName": [
+        "1021b",
+        "2053",
+        "205"
+      ],
       "flag": "private",
       "creator": "joeesph"
     }
