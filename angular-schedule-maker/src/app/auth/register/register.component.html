@@ -39,9 +39,26 @@
               placeholder="Enter password 6 characters min">
             </div>
 
+            <div class="form-group">
+              <label for="registerRole">Role</label>
+              <input type="string" 
+              name="role"
+              ngModel
+              required
+              #role="ngModel"
+              class="form-control" 
+              id="registerRole" 
+              placeholder="Please select role">
+            </div>
+
             <button type="submit" [disabled]="f.invalid"
             class="btn btn-primary">Register <i class="fas fa-sign-in-alt"></i></button>
           </form>
+
+
     </div>
+   
 </div>
+
+
 
