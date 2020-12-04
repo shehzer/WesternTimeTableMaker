@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +9,27 @@ import {NgForm} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(f: NgForm) {
+    this.authService.login(f.value).subscribe((res:any)=>{
+      console.log(res);
+    }),
+    error => {
+      console.log(error)
+    }
+
     console.log(f.value);  // { first: '', last: '' }
     console.log(f.valid);  // false
+    // const loginObserver = {
+    //   next: x => console.log('User Logged in' + x),
+    //   error: err => console.log(err)
+    // };
+
+    // this.authService.login(f.value).subscribe(loginObserver);
   }
 
 }

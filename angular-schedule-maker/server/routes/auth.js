@@ -52,7 +52,7 @@ const {registerValidation, loginValidation} = require('../validation');
         //Create jwt token
         const token = jwt.sign({_id: user._id,
                                 _username: user.name}, process.env.TOKEN_SECRET);
-        res.header('auth-token', token).send(token);
+        res.header('auth-token', token).json(token);
     });
 
 
