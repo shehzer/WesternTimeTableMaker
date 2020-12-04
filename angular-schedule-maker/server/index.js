@@ -15,6 +15,7 @@ app.use(cors())
 const authRoute = require('./routes/auth');
 const publicRoute = require('./routes/public');
 const privateRoute = require('./routes/private');
+const adminRoute = require('./routes/admin');
 dotenv.config();
 
 //Connect to DB
@@ -32,6 +33,7 @@ app.use(express.json());
 app.use('/api/user', authRoute);
 app.use('/api/public', publicRoute);
 app.use('/api/secure', privateRoute);
+app.use('/api/admin', adminRoute);
 
 // Setup middleware to do logging
 app.use((req, res, next) =>{

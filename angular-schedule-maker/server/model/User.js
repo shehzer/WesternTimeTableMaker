@@ -19,9 +19,20 @@ const userSchema = new mongoose.Schema({
         max: 1024,
         min: 6
     },
-    data: {
+    Date: {
         type: Date,
         default: Date.now
+    },
+    role: {
+        type: String,
+        enum:['ADMIN','USER', 'MANAGER'],
+        default: 'USER'
+    },
+
+    active: {
+        type: String,
+        enum: ['active', 'deactivated'],
+        default: 'active'
     }
 
 });
