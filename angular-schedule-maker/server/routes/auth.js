@@ -2,7 +2,7 @@ const router = require('express').Router()
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {registerValidation, loginValidation, adminValidation} = require('../validation');
+const {registerValidation, loginValidation} = require('../validation');
 
 
 
@@ -25,7 +25,8 @@ const {registerValidation, loginValidation, adminValidation} = require('../valid
             name: req.body.name,
             email: req.body.email,
             password: hashPass,
-            role: req.body.role
+            role: req.body.role,
+            active: req.body.active
         });
         try{
             const savedUser = await user.save();

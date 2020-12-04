@@ -27,6 +27,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum:['ADMIN','USER', 'MANAGER'],
         default: 'USER'
+    },
+
+    active: {
+        type: String,
+        enum: ['active', 'deactivated'],
+        default: 'active'
     }
 
 });

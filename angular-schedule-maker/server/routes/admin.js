@@ -26,8 +26,54 @@ router.put('/change/:name', verify, async (req,res) =>{
         console.log(user.role);
         user.role = "MANAGER";
         console.log(user.role);
+        const savedUser = await user.save();
         //user = req.user._role = "MANAGER";
-       res.status(200).send(user)
+       res.status(200).send(savedUser)
+    }
+  else{
+      res.status(400).send("You must be an admin!");
+  }
+}); 
+
+
+router.put('/change/active/:name', verify, async (req,res) =>{
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
+    escape(name);
+
+    if(req.user._role == "ADMIN"){
+
+        //Check if email exists
+        const user = await User.findOne({name: req.params.name});
+        if(!user) return res.status(400).send('Name does not exist');
+        if(user.active == "active") return res.status(400).send('User is already active');
+        if(user.active != "active"){
+            user.active = "active";
+        }
+        const savedUser = await user.save();
+       res.status(200).send(savedUser);
+    }
+  else{
+      res.status(400).send("You must be an admin!");
+  }
+}); 
+
+router.put('/change/deactive/:name', verify, async (req,res) =>{
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
+    escape(name);
+
+    if(req.user._role == "ADMIN"){
+
+        //Check if email exists
+        const user = await User.findOne({name: req.params.name});
+        if(!user) return res.status(400).send('Name does not exist');
+        if(user.active == "deactivated") return res.status(400).send('User is already deactivated');
+        if(user.active != "deactivated"){
+            user.active = "deactivated";
+        }
+        const savedUser = await user.save();
+       res.status(200).send(savedUser);
     }
   else{
       res.status(400).send("You must be an admin!");
