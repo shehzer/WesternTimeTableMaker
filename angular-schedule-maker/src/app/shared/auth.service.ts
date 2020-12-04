@@ -13,7 +13,7 @@ const httpOptions = {
 export class AuthService {
 
   authUrl = "http://localhost:4000/api/user/";
-  registerUrl = "http://localhost:4000/api/user/"
+  registerUrl = "http://localhost:4000/api/user/";
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +30,10 @@ export class AuthService {
 
   register(model:any){
     return this.http.post(`${this.authUrl}register`, model, httpOptions);
+  }
+
+  update(model:any){
+    return this.http.post(`${this.authUrl}update`, model, httpOptions);
   }
 
 

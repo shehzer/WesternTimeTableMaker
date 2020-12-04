@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['active', 'deactivated'],
         default: 'active'
+    },
+
+    update: {
+        type: String
     }
 
 });

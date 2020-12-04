@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -16,7 +17,7 @@ import { RegisterComponent } from './register/register.component';
   ],
 
   exports: [
-    LoginComponent, RegisterComponent
+    LoginComponent, RegisterComponent, ResetPasswordComponent
   ]
 })
 export class AuthModule { }

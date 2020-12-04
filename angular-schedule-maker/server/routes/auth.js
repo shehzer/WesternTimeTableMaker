@@ -2,7 +2,8 @@ const router = require('express').Router()
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {registerValidation, loginValidation} = require('../validation');
+const {registerValidation, loginValidation, updateValidation} = require('../validation');
+const { valid } = require('@hapi/joi');
 
 
 
@@ -56,6 +57,42 @@ const {registerValidation, loginValidation} = require('../validation');
                                 _username: user.name,
                                 _role: user.role}, process.env.TOKEN_SECRET);
         res.header('auth-token', token).json(token);
+    });
+
+
+
+
+    //Login
+    router.post('/update', async (req,res) => {
+        //Validate Response
+        const {error} = updateValidation(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
+
+        //Check if email exists
+        const user = await User.findOne({email: req.body.email});
+        if(!user) return res.status(400).send('Email ');
+
+        //Password is correct
+        const valid_pass = await bcrypt.compare(req.body.password, user.password);
+
+       
+
+        if(!valid_pass) return res.status(400).json('Invalid Password');
+
+        if(valid_pass){
+            user.password = req.body.update;
+            user.save();
+            console.log(user.password);
+            //HASH PASS AGAIN
+            const salt = await bcrypt.genSalt(10);
+            const hashPass = await bcrypt.hash(user.password, salt);
+            user.password = hashPass;
+            console.log(user.password);
+            user.save();
+            res.status(200).json('password updated!');
+        }
+
+       
     });
 
    
