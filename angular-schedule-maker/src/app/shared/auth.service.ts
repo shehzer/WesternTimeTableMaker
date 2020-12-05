@@ -14,18 +14,13 @@ export class AuthService {
 
   authUrl = "http://localhost:4000/api/user/";
   registerUrl = "http://localhost:4000/api/user/";
+  publicUrl = "http://localhost:4000/api/public/"
 
   constructor(private http: HttpClient) { }
 
   login(model: any){
 
     return this.http.post(`${this.authUrl}login`,model, httpOptions)
-    // return this.http.post(this.authUrl + 'login', model).pipe(
-    //   map((response:any) =>{
-    //     const user = response;
-    //     console.log(user);
-    //   })
-    // )
   }
 
   register(model:any){
@@ -35,6 +30,23 @@ export class AuthService {
   update(model:any){
     return this.http.post(`${this.authUrl}update`, model, httpOptions);
   }
+
+  getCourses(){
+    return this.http.get(this.publicUrl+ 'courses');
+  }
+
+  getSubject(subject){
+    return this.http.get(`${this.publicUrl}${subject}`);
+  }
+  
+  getSubsandCourse(sub,course){
+    return this.http.get( `${this.publicUrl}subject/${sub}/${course}`);
+  }
+  
+  getSubsandCourseandComp(sub,course,component){
+    return this.http.get( `${this.publicUrl}subject/${sub}/${course}/?${component}`);
+  }
+
 
 
 
