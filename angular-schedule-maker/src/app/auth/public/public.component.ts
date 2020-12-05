@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 export class PublicComponent implements OnInit {
   public data= [];
   public schedules=[];
+  public oneSchedule = [];
   public subject;
   public course;
   public component;
@@ -135,6 +136,42 @@ list_Schedules(){
   
 }
 
+display(){
+  this.authService.display(this.scheduleName).subscribe((res:any)=>{
+    console.log(res[2][0].catalog_description);
+    var results = []
+    let i =1;
+    var exists = 
+    res.map(function(d){
+      console.log(res[1])
+      if(i<=2){
+        var info = {
+
+            "Creator": res[0].Creator,
+            "Numcourses": res[0].Numcourses,
+            "scheduleName": res[0].scheduleName,
+            "catalog_description": res[i][0].catalog_description,
+            "catalog_nbr": res[i][0].catalog_nbr,
+            "subject": res[i][0].subject,
+            
+          }
+          results.push(info)
+          i++; 
+        }
+      
+      return info;
+        
+         
+    });
+    // results.map((objecto) => {
+    //   console.log(results);
+    // })
+    this.schedules= results;
+    console.log(this.schedules)
+
+  })
+}
+
 
 //format tables
 makeTable(D){
@@ -150,46 +187,6 @@ makeTable(D){
     a += '<tr>';
     for(j=0;j<cols.length;j++) {
       a += `<td>${D[i][cols[j]]}</td>`;
-    }
-    a += '</tr>';
-  }
-  a += '</tbody></table>';
-  return a;
-}
-
-makeTable1(D){
-  var a = '';
-  var cols = Object.keys(D[0]);
-  a += '<table><thead><tr>';
-  for(var j=0;j<cols.length;j++) {
-    a+= `<th class = "list">${cols[j]}</th>`;
-  }
-  a += '</tr class = "list"></thead><tbody>';
-
-  for(var i=0;i<D.length; i=2) {
-    a += '<tr>';
-    for(j=0;j<cols.length;j++) {
-      a += `<td class = "list">${D[0][cols[j]]}</td>`;
-    }
-    a += '</tr>';
-  }
-  a += '</tbody></table>';
-  return a;
-}
-//make table
- makeTable2(D){
-  var a = '';
-  var cols = Object.keys(D);
-  a += '<table><thead><tr>';
-  for(var j=0;j<cols.length;j++) {
-    a+= `<th>${cols[j]}</th>`;
-  }
-  a += '</tr></thead><tbody>';
-
-  for(var i=0;i<D.length; i=2) {
-    a += '<tr>';
-    for(j=0;j<cols.length;j++) {
-      a += `<td>${D[0][cols[j]]}</td>`;
     }
     a += '</tr>';
   }

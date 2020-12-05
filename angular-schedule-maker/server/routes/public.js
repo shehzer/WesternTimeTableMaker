@@ -74,21 +74,60 @@ router.route('/:data_subject',) //api/id:
 router.get('/show/schedule', (req,res)=>{
     let scheduleList=[];
     for(let i = 0; i<db.getState().schedules.length; i++){
-        var size = `${db.getState().schedules[i].courseName.length-4}`
-        if(size <0){
-            size =0;
-        }
-        if(`${db.getState().schedules[i].courseName.length}` ==4){
-            size =1;
-        }
-        console.log()
-        if(`${db.getState().schedules[i].flag}` == "public"){
-            scheduleList.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`})
-        }
+        
+      
+        var size = `${db.getState().schedules[i].courseName.length}`
+            if(size <0){
+                size =0;
+            }
+            if(`${db.getState().schedules[i].courseName.length}` ==4){
+                size =1;
+            }
+            console.log()
+            if(`${db.getState().schedules[i].flag}` == "public"){
+                scheduleList.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}` })
+            }
+        
         
         //scheduleList.push(`Schedule name:${db.getState().schedules[i].scheduleName}, Number of courses:${db.getState().schedules[i].courseName.length}`)
     }
     res.send(scheduleList);
 });
+
+//show specific schedule
+
+router.route('/schedules/:name/')
+
+    .get((req,res)=>{
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
+    let display = [];
+    
+    for(let i = 0; i<db.getState().schedules.length; i++){
+        var size = `${db.getState().schedules[i].courseName.length}`
+        display.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`});
+
+     
+        if(db.getState().schedules[i].scheduleName===name){
+            for(let k=0; k<db.getState().schedules[i].courseName.length;k++){
+                let showC = db.getState().schedules[i].courseName[k];
+                console.log(showC)
+                let showS = db.getState().schedules[i].subject[k];
+                console.log(showS)
+                const course = data.filter(a => a.subject.toString().toLowerCase()=== req.sanitize(showS.toString().toLowerCase()));
+                console.log(course)
+                const final = course.filter(a => a.catalog_nbr.toString().toUpperCase() === req.sanitize(showC.toString().toUpperCase()));
+                console.log(final)
+                display.push(final);
+
+            }
+            res.send(display);
+            return;
+           
+        }
+    }
+    res.status(404).send("Error")
+
+})
 
     module.exports = router;

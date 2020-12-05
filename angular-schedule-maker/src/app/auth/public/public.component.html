@@ -15,10 +15,14 @@
 
     <button (click)=" getSubsandCourse()"  class="label2">Search</button>
 
+    <!-- <div>
+        <h4 class = "h4"> Display: {{scheduleName}}          </h4>
+    <button class = "but" (click)="display()">Display a specified schedule</button>
+   
+    </div> -->
 
-
-    <input type="text" name="sub&course&component" [(ngModel)]="component" id="component" placeholder="Component">
-    <button (click)="getSubsandCourseandComp()" class="label3">Search</button>
+    <input type="text" name="scheduleName" [(ngModel)]="scheduleName" placeholder="Search a schedule">
+    <button (click)="display()" class="label1">Search</button>
 
     <button class = "but1" (click)="list_Schedules()">list all public schedules</button>
 
@@ -74,6 +78,13 @@
             <mat-card-content class = cards> Creator: {{list.Creator}} </mat-card-content>
             <br *ngIf = "!list.collapsed">
             <mat-card-content class = cards> Number of Courses: {{list.Numcourses}} </mat-card-content>
+            <br *ngIf = "!list.collapsed">
+            <mat-card-content *ngIf="!list.collapsed" class = cards> description: {{list.catalog_description}} </mat-card-content>
+            <br *ngIf = "!list.collapsed">
+            <mat-card-content *ngIf="!list.collapsed" class = cards> Subject: {{list.subject}} </mat-card-content>
+            <br *ngIf = "!list.collapsed">
+            <mat-card-content *ngIf="!list.collapsed" class = cards> Course ID: {{list.catalog_nbr}} </mat-card-content>
+            <br *ngIf = "!list.collapsed">
             <!-- <button [disabled]= "!token" (click) = "" class = "">Add</button> -->
 
             <mat-card-actions>

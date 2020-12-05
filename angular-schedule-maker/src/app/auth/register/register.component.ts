@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {RouterModule} from '@angular/router'
+import {Router} from '@angular/router'
 import { AuthService } from 'src/app/shared/auth.service';
 import { Observable, of } from 'rxjs';
 

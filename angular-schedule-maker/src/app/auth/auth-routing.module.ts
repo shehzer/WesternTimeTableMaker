@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
+import { AuthguardGuard } from './authguard.guard';
 import { AuthorizedComponent } from './authorized/authorized.component';
 import { LoginComponent } from './login/login.component';
 import { PublicComponent } from './public/public.component';
@@ -13,7 +14,7 @@ const routes: Routes = [
   { path: 'reset', component: ResetPasswordComponent},
   { path: 'public', component: PublicComponent},
   { path: 'admin', component: AdminComponent  },
-  {path: 'authorized', component: AuthorizedComponent}
+  {path: 'authorized', component: AuthorizedComponent, canActivate:[AuthguardGuard]}
 ];
 
 @NgModule({

@@ -104,7 +104,12 @@ router.route('/schedules/:name/')
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
     let display = [];
+    
     for(let i = 0; i<db.getState().schedules.length; i++){
+        var size = `${db.getState().schedules[i].courseName.length}`
+        display.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`});
+
+     
         if(db.getState().schedules[i].scheduleName===name){
             for(let k=0; k<db.getState().schedules[i].courseName.length;k++){
                 let showC = db.getState().schedules[i].courseName[k];

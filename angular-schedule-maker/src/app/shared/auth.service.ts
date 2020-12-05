@@ -16,12 +16,17 @@ export class AuthService {
   registerUrl = "http://localhost:4000/api/user/";
   publicUrl = "http://localhost:4000/api/public/";
   publicList = "http://localhost:4000/api/public/show/schedule";
+  authorizeUrl = " http://localhost:4000/api/secure/";
 
   constructor(private http: HttpClient) { }
 
   login(model: any){
 
     return this.http.post(`${this.authUrl}login`,model, httpOptions)
+  }
+
+  loggedIn(){
+    return !!localStorage.getItem('token');
   }
 
   register(model:any){
@@ -50,6 +55,10 @@ export class AuthService {
 
   list_Schedules(){
     return this.http.get(`${this.publicList}`)
+  }
+
+  display(schedule){
+    return this.http.get(`${this.authorizeUrl}schedules/${schedule}`)
   }
 
 
