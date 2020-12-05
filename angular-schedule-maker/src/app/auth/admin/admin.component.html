@@ -1,1 +1,33 @@
-<p>admin works!</p>
+    
+    
+    <input type="text" name="username" [(ngModel)]="username" placeholder="Username">
+    <button (click)="getUserinfo()" class="label1">Search</button>
+
+    <div class = "card" [hidden] = "isDisplay2">
+    
+        <div *ngFor="let user of users">
+            <mat-card class = "mat-elevation-z5">
+                <mat-card-title > {{user.name}}</mat-card-title>
+                <mat-card-content class = cards> Username: {{user.name}} </mat-card-content>
+                <br *ngIf = "!user.collapsed">
+                <mat-card-content class = cards> Email: {{user.email}} </mat-card-content>
+                <br *ngIf = "!user.collapsed">
+                <mat-card-content class = cards> Role: {{user.role}} </mat-card-content>
+                <br *ngIf = "!user.collapsed">
+                <mat-card-content  class = cards> Active: {{user.active}} </mat-card-content>
+                <mat-card-content  class = cards> Date Created: {{user.Date}} </mat-card-content>
+
+                <!-- <button [disabled]= "!token" (click) = "" class = "">Add</button> -->
+    
+                <mat-card-actions>
+                    <button mat-button (click) = "user.collapsed = true"> Collapse text</button>
+                    <button mat-button (click) = "user.collapsed = false"> UnCollapse text</button>
+                    <button (click) = "toggleDisplay2()"> Hide</button>
+                </mat-card-actions>
+    
+            </mat-card>
+    
+        </div>
+    
+    
+    </div>

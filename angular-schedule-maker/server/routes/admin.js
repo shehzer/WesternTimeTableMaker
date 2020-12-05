@@ -12,11 +12,28 @@ const User = require('../model/User');
 
 router.use(expressSanitizer());
 
+router.get('/userinfo/:username', verify, async (req,res)=>{
+    var username = req.sanitize(req.params.name);
+    username = escapeHTML(username);
+    escape(username);
+    if(req.user._role == "ADMIN"){
+        const user = await User.findOne({name: req.params.username});
+        if(!user) return res.status(400).send('Name is invalid');
+        console.log(req);
+        console.log(user);
+        res.status(200).send(user)
+    }
+    else{
+        res.status(400).send("You must be an admin!");
+    }
+});
+
 
 router.put('/change/:name', verify, async (req,res) =>{
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
     escape(name);
+    
 
     if(req.user._role == "ADMIN"){
 

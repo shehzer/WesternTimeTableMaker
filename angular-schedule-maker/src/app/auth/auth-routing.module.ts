@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminGuard } from './admin.guard';
 import { AdminComponent } from './admin/admin.component';
 import { AuthguardGuard } from './authguard.guard';
 import { AuthorizedComponent } from './authorized/authorized.component';
@@ -8,12 +9,13 @@ import { PublicComponent } from './public/public.component';
 import { RegisterComponent } from './register/register.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'reset', component: ResetPasswordComponent},
   { path: 'public', component: PublicComponent},
-  { path: 'admin', component: AdminComponent  },
+  { path: 'admin', component: AdminComponent, canActivate:[AdminGuard]  },
   {path: 'authorized', component: AuthorizedComponent, canActivate:[AuthguardGuard]}
 ];
 

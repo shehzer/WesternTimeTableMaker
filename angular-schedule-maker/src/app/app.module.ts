@@ -12,6 +12,7 @@ import { SharedModule } from './shared/shared.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthguardGuard } from './auth/authguard.guard';
+import { AdminGuard } from './auth/admin.guard';
 
 
 
@@ -30,7 +31,7 @@ import { AuthguardGuard } from './auth/authguard.guard';
     MDBBootstrapModule.forRoot(),
   ],
   schemas: [ NO_ERRORS_SCHEMA],
-  providers: [ClassServiceService, AuthguardGuard],
+  providers: [ClassServiceService, AuthguardGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

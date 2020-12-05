@@ -12,6 +12,20 @@
       ],
       "flag": "public",
       "creator": "joeesph"
+    },
+    {
+      "scheduleName": "undefined",
+      "subject": [],
+      "courseName": [],
+      "flag": "private",
+      "creator": "Joesph"
+    },
+    {
+      "scheduleName": "jack",
+      "subject": [],
+      "courseName": [],
+      "flag": "private",
+      "creator": "Joesph"
     }
   ]
 }

@@ -55,7 +55,9 @@ const { valid } = require('@hapi/joi');
         //Create jwt token
         const token = jwt.sign({_id: user._id,
                                 _username: user.name,
-                                _role: user.role}, process.env.TOKEN_SECRET);
+                                _role: user.role,
+                                _active: user.active,
+                                _email: user.email}, process.env.TOKEN_SECRET);
         res.header('auth-token', token).json(token);
     });
 

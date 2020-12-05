@@ -138,7 +138,6 @@ list_Schedules(){
 
 display(){
   this.authService.display(this.scheduleName).subscribe((res:any)=>{
-    console.log(res[2][0].catalog_description);
     var results = []
     let i =1;
     var exists = 
@@ -158,17 +157,11 @@ display(){
           results.push(info)
           i++; 
         }
-      
-      return info;
-        
+      return info;     
          
     });
-    // results.map((objecto) => {
-    //   console.log(results);
-    // })
     this.schedules= results;
     console.log(this.schedules)
-
   })
 }
 

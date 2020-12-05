@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   onSubmit(f: NgForm) {
     this.authService.login(f.value).subscribe((res:any)=>{
       console.log(res);
+      console.log(res._role);
       localStorage.setItem('token',res)
       this._router.navigate(['authorized'])
     }),
