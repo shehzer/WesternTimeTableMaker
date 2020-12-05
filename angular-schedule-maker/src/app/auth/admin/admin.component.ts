@@ -16,6 +16,10 @@ isDisplay2 = false
   ngOnInit(): void {
   }
 
+  toggleDisplay2(){
+    this.isDisplay2 = !this.isDisplay2;
+  }
+
   getUserinfo(){
     this.authService.userInfo(this.username).subscribe((res:any) => {
       console.log(res);
@@ -39,37 +43,31 @@ isDisplay2 = false
   }); 
 }
 
-// display(){
-//   this.authService.display(this.scheduleName).subscribe((res:any)=>{
-//     var results = []
-//     let i =1;
-//     var exists = 
-//     res.map(function(d){
-//       console.log(res[1])
-//       if(i<=2){
-//         var info = {
-
-//             "Creator": res[0].Creator,
-//             "Numcourses": res[0].Numcourses,
-//             "scheduleName": res[0].scheduleName,
-//             "catalog_description": res[i][0].catalog_description,
-//             "catalog_nbr": res[i][0].catalog_nbr,
-//             "subject": res[i][0].subject,
-            
-//           }
-//           results.push(info)
-//           i++; 
-//         }
-//       return info;     
-         
-//     });
-//     this.schedules= results;
-//     console.log(this.schedules)
-//   })
-// }
-toggleDisplay2(){
-  this.isDisplay2 = !this.isDisplay2;
+changeRole(){
+  this.authService.changeRole(this.username).subscribe((res:any)=>{
+    console.log(res);
+  })
 }
+
+changeAdmin(){
+  this.authService.changeAdmin(this.username).subscribe((res:any)=>{
+    console.log(res);
+  })
+}
+
+activate(){
+  this.authService.activate(this.username).subscribe((res:any)=>{
+    console.log(res);
+  })
+}
+
+deactivate(){
+  this.authService.deactivate(this.username).subscribe((res:any)=>{
+    console.log(res);
+  })
+}
+
+
 
 
 

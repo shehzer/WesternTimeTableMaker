@@ -52,6 +52,29 @@ router.put('/change/:name', verify, async (req,res) =>{
   }
 }); 
 
+router.put('/change/admin/:name', verify, async (req,res) =>{
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
+    escape(name);
+    
+
+    if(req.user._role == "ADMIN"){
+
+        //Check if email exists
+        const user = await User.findOne({name: req.params.name});
+        if(!user) return res.status(400).send('Name does not exist');
+        console.log(user.role);
+        user.role = "ADMIN";
+        console.log(user.role);
+        const savedUser = await user.save();
+        //user = req.user._role = "MANAGER";
+       res.status(200).send(savedUser)
+    }
+  else{
+      res.status(400).send("You must be an admin!");
+  }
+}); 
+
 
 router.put('/change/active/:name', verify, async (req,res) =>{
     var name = req.sanitize(req.params.name);

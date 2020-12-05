@@ -48,8 +48,27 @@ export class AuthService {
   }
 
   userInfo(username){
-
     return this.http.get(`${this.adminUrl}userinfo/${username}`, httpOptions);
+  }
+
+  changeRole(username){
+    let body = {};
+    return this.http.put(this.adminUrl + `change/${username}`, body, httpOptions );
+  }
+  
+  changeAdmin(username){
+    let body = {};
+    return this.http.put(this.adminUrl + `change/admin/${username}`, body, httpOptions );
+  }
+
+  activate(username){
+    let body = {};
+    return this.http.put(this.adminUrl + `change/active/${username}`, body, httpOptions );
+  }
+
+  deactivate(username){
+    let body = {};
+    return this.http.put(this.adminUrl + `change/deactive/${username}`, body, httpOptions );
   }
 
   register(model:any){
@@ -89,7 +108,13 @@ export class AuthService {
     //'/schedule/:name'
   }
 
+  add_new(name:string, info:object){
+    return this.http.put(`${this.authorizeUrl}create/schedule/${name}`,info,httpOptions);
+  }
+
   
+
+
 
 
 

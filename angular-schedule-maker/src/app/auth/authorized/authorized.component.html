@@ -1,9 +1,117 @@
+<div class="entire">
+
+    <div>
+        <h4 class="h4">List of All courses </h4>
+        <button (click)="getCourses()" class="but">Courses</button>
+    </div>
+
+
+    <input type="text" name="subject" [(ngModel)]="subject" placeholder="Subject">
+    <button (click)="getSubject()" class="label1">Search</button>
 
 
 
-<input type="text" name = "scheduleName" [(ngModel)] = "scheduleName" id = "scheduleName" placeholder="Create a new schedule" class = "label4">
-    <button (click)="createSchedule()" class = "label4">Create</button>
+    <input type="text" name="sub&course" [(ngModel)]="course" id="course" placeholder="Course Code">
+
+    <button (click)=" getSubsandCourse()" class="label2">Search</button>
+
+    <!-- <div>
+            <h4 class = "h4"> Display: {{scheduleName}}          </h4>
+        <button class = "but" (click)="display()">Display a specified schedule</button>
+       
+        </div> -->
+
+
+    <h4> Create a New Schedule</h4>
+    <input type="text" name="scheduleName" [(ngModel)]="scheduleName" id="scheduleName"
+        placeholder="Create a new schedule" class="label4">
+    <button (click)="createSchedule()" class="label4">Create</button>
+
+    <div>
+
+        <h4 class= "h4">Would you like to add these courses to the schedule: {{scheduleName}}            </h4>
+        <button class ="but" (click)="add_new()"> Add a subject and course</button>
+        <h4> Selected Subject code: {{subject}}</h4>
+        <h4> Selected Course code: {{course}}</h4>
+    </div>
+
+    <input type="text" name="scheduleName" [(ngModel)]="scheduleName" placeholder="Search a schedule">
+    <button (click)="display()" class="label1">Search</button>
 
     <div id="display"></div>
 
+    <button (click)="toggleDisplay1()"> Hide Table</button>
+    <table id="display1" class="list" [hidden]="isDisplay1">
+    </table>
+
+
+
+
+
+
+    <div class="card" [hidden]="isDisplay">
+
+        <div *ngFor="let courses of data">
+            <mat-card class="mat-elevation-z5">
+                <mat-card-title> {{courses.subject}} {{courses.catalog_nbr}} </mat-card-title>
+                <mat-card-content class=cards> Name: {{courses.className}} </mat-card-content>
+                <br *ngIf="!courses.collapsed">
+                <mat-card-content class=cards> Section: {{courses.class_section}} </mat-card-content>
+                <br *ngIf="!courses.collapsed">
+                <mat-card-content *ngIf="!courses.collapsed" class=cards> Start time: {{courses.start_time}}
+                </mat-card-content>
+                <br *ngIf="!courses.collapsed">
+                <mat-card-content *ngIf="!courses.collapsed" class=cards> endtime: {{courses.end_time}}
+                </mat-card-content>
+                <br *ngIf="!courses.collapsed">
+                <mat-card-content name="classNum" class=cards> Class Number: {{courses.class_nbr}} </mat-card-content>
+                <br *ngIf="!courses.collapsed">
+                <mat-card-content *ngIf="!courses.collapsed" class=cards> Location: {{courses.campus}}
+                </mat-card-content>
+                <br *ngIf="!courses.collapsed">
+                <mat-card-content class=cards> Component: {{courses.ssr_component}} </mat-card-content>
+                <!-- <button [disabled]= "!token" (click) = "" class = "">Add</button> -->
+
+
+
+                <mat-card-actions>
+                    <button mat-button (click)="courses.collapsed = true"> Collapse text</button>
+                    <button mat-button (click)="courses.collapsed = false"> UnCollapse text</button>
+                    <button (click)="toggleDisplay()"> Hide</button>
+                </mat-card-actions>
+
+            </mat-card>
+        </div>
+    </div>
+
+    <div class = "card" [hidden] = "isDisplay2">
     
+        <div *ngFor="let list of schedules">
+            <mat-card class = "mat-elevation-z5">
+                <mat-card-title > Schedule Name :{{list.scheduleName}}</mat-card-title>
+                <mat-card-content class = cards> Creator: {{list.Creator}} </mat-card-content>
+                <br *ngIf = "!list.collapsed">
+                <mat-card-content class = cards> Number of Courses: {{list.Numcourses}} </mat-card-content>
+                <br *ngIf = "!list.collapsed">
+                <mat-card-content *ngIf="!list.collapsed" class = cards> description: {{list.catalog_description}} </mat-card-content>
+                <br *ngIf = "!list.collapsed">
+                <mat-card-content *ngIf="!list.collapsed" class = cards> Subject: {{list.subject}} </mat-card-content>
+                <br *ngIf = "!list.collapsed">
+                <mat-card-content *ngIf="!list.collapsed" class = cards> Course ID: {{list.catalog_nbr}} </mat-card-content>
+                <br *ngIf = "!list.collapsed">
+                <!-- <button [disabled]= "!token" (click) = "" class = "">Add</button> -->
+    
+                <mat-card-actions>
+                    <button mat-button (click) = "list.collapsed = true"> Collapse text</button>
+                    <button mat-button (click) = "list.collapsed = false"> UnCollapse text</button>
+                    <button (click) = "toggleDisplay2()"> Hide</button>
+                </mat-card-actions>
+    
+            </mat-card>
+    
+        </div>
+    
+    
+    </div>
+
+</div>

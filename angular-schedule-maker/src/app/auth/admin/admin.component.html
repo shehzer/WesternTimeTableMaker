@@ -1,7 +1,10 @@
-    
-    
+    <div class = "entire">
+    <h1> Welcome to Admin Portal!</h1>
+
+    <h4 class ="h4"> Search for a User</h4>
     <input type="text" name="username" [(ngModel)]="username" placeholder="Username">
     <button (click)="getUserinfo()" class="label1">Search</button>
+
 
     <div class = "card" [hidden] = "isDisplay2">
     
@@ -20,8 +23,10 @@
                 <!-- <button [disabled]= "!token" (click) = "" class = "">Add</button> -->
     
                 <mat-card-actions>
-                    <button mat-button (click) = "user.collapsed = true"> Collapse text</button>
-                    <button mat-button (click) = "user.collapsed = false"> UnCollapse text</button>
+                    <button mat-button (click) = "changeRole()"> Promote to Manager</button>
+                    <button mat-button (click) = "changeAdmin()"> Grant Admin</button>
+                    <button mat-button (click) = "activate()"> Activate account</button>
+                    <button mat-button (click) = "deactivate()"> Deactivate account</button>
                     <button (click) = "toggleDisplay2()"> Hide</button>
                 </mat-card-actions>
     
@@ -31,3 +36,4 @@
     
     
     </div>
+</div>

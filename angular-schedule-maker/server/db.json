@@ -1,29 +1,15 @@
 {
   "schedules": [
     {
-      "scheduleName": "jorge2",
+      "scheduleName": "test4",
       "subject": [
-        "SE",
-        "Actursci"
+        "Actursci",
+        "SE"
       ],
       "courseName": [
-        "3316a",
-        "1021b"
+        "1021b",
+        "3316a"
       ],
-      "flag": "public",
-      "creator": "joeesph"
-    },
-    {
-      "scheduleName": "undefined",
-      "subject": [],
-      "courseName": [],
-      "flag": "private",
-      "creator": "Joesph"
-    },
-    {
-      "scheduleName": "jack",
-      "subject": [],
-      "courseName": [],
       "flag": "private",
       "creator": "Joesph"
     }

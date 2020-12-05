@@ -33,7 +33,7 @@ router.put('/schedule/:name', verify, (req,res) =>{
                                   courseName:[],
                                   flag: "private",
                                   creator: req.user._username}).write();
-    res.status(200).send("The schedule " + name + " has been created");
+    res.status(200).json("The schedule " + name + " has been created");
 }); 
 
 //task 5 adds course to given schedule
@@ -44,11 +44,12 @@ router.put('/create/schedule/:name', (req, res) => {
     const schedule = req.body;
     
     let sub = req.sanitize(schedule.subjectCode)
+    var exists = data.find(d => d.subject === sub.toUpperCase());
     let cour = req.sanitize(schedule.courseCode)
     let flag = req.sanitize(schedule.flag)
     let subject = JSON.parse(`"${sub}"`); 
     let course = JSON.parse(`"${cour}"`); 
-
+    if(exists){
     for (let i = 0; i < db.getState().schedules.length; i++) {
         if (db.getState().schedules[i].scheduleName === name ) {
             for (let k = 0; k < db.getState().schedules[i].courseName.length; k++) {
@@ -58,10 +59,12 @@ router.put('/create/schedule/:name', (req, res) => {
                     subject.toUpperCase()) {
                     db.getState().schedules[i].courseName = course;
                     db.getState().schedules[i].subject = subject;
-                    db.getState().schedules[i].flag = flag;
+                        while(flag != null){
+                            db.getState().schedules[i].flag = flag;
+                        }  
                     db.update('schedules').write();
                     console.log("overwritten")
-                    res.status(200).send("Overwrite");
+                    res.status(200).json("Overwrite");
                     return;
                 }
             }
@@ -69,15 +72,19 @@ router.put('/create/schedule/:name', (req, res) => {
             console.log("hi" + db.getState().schedules[i].subject);
             db.getState().schedules[i].subject.push(subject);
             db.getState().schedules[i].courseName.push(course);
-            db.getState().schedules[i].flag = flag;
+            while(flag != null){
+                db.getState().schedules[i].flag = flag;
+            }  
             db.update('schedules').write();
-            res.status(200).send("Added");
+            res.status(200).json("Added");
             return;
         }
     }
-
+}
     res.status(404).send("Name does not exist");
 });
+
+
 
 //Task 8
 router.get('/show/schedule', (req,res)=>{
