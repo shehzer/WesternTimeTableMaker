@@ -69,6 +69,7 @@ router.put('/create/schedule/:name', (req, res) => {
             console.log("hi" + db.getState().schedules[i].subject);
             db.getState().schedules[i].subject.push(subject);
             db.getState().schedules[i].courseName.push(course);
+            db.getState().schedules[i].flag = flag;
             db.update('schedules').write();
             res.status(200).send("Added");
             return;

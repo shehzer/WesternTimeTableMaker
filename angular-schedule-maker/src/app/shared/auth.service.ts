@@ -14,7 +14,8 @@ export class AuthService {
 
   authUrl = "http://localhost:4000/api/user/";
   registerUrl = "http://localhost:4000/api/user/";
-  publicUrl = "http://localhost:4000/api/public/"
+  publicUrl = "http://localhost:4000/api/public/";
+  publicList = "http://localhost:4000/api/public/show/schedule";
 
   constructor(private http: HttpClient) { }
 
@@ -45,6 +46,10 @@ export class AuthService {
   
   getSubsandCourseandComp(sub,course,component){
     return this.http.get( `${this.publicUrl}subject/${sub}/${course}/?${component}`);
+  }
+
+  list_Schedules(){
+    return this.http.get(`${this.publicList}`)
   }
 
 

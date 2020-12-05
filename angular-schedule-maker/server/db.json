@@ -9,17 +9,16 @@
     },
     {
       "scheduleName": "jorge",
-      "subject": [
-        "Actursci",
-        "Actursci",
-        "Actursci"
-      ],
-      "courseName": [
-        "1021b",
-        "2053",
-        "205"
-      ],
-      "flag": "private",
+      "subject": "Actursci",
+      "courseName": "1021b",
+      "flag": "public",
+      "creator": "joeesph"
+    },
+    {
+      "scheduleName": "jorge1",
+      "subject": "SE",
+      "courseName": "3316a",
+      "flag": "public",
       "creator": "joeesph"
     }
   ]

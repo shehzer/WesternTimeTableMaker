@@ -36,7 +36,12 @@ router.route('/:data_subject',) //api/id:
         })
         .map(function(d){
             var info = {"subject": d.subject,
-                        "catalog_nbr": d.catalog_nbr
+                        "className": d.className,
+                        "catalog_nbr": d.catalog_nbr,
+                        "campus": d.campus,
+                        "class_section": d.class_section,
+                        "days": d.days
+                        
                        }
         return info;
         });
@@ -78,7 +83,7 @@ router.get('/show/schedule', (req,res)=>{
         }
         console.log()
         if(`${db.getState().schedules[i].flag}` == "public"){
-            scheduleList.push({"Schedule name": `${db.getState().schedules[i].scheduleName}`, "Number courses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`})
+            scheduleList.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`})
         }
         
         //scheduleList.push(`Schedule name:${db.getState().schedules[i].scheduleName}, Number of courses:${db.getState().schedules[i].courseName.length}`)
