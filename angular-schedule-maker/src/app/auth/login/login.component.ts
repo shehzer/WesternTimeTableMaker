@@ -10,13 +10,14 @@ import { AuthService } from 'src/app/shared/auth.service';
 export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
-
+  token;
   ngOnInit(): void {
   }
 
   onSubmit(f: NgForm) {
     this.authService.login(f.value).subscribe((res:any)=>{
       console.log(res);
+      this.token = res;
     }),
     error => {
       console.log(error)
