@@ -52,13 +52,9 @@
       "creator": "Joesph"
     },
     {
-      "scheduleName": "m",
-      "subject": [
-        "actursci"
-      ],
-      "courseName": [
-        "1021b"
-      ],
+      "scheduleName": "f",
+      "subject": [],
+      "courseName": [],
       "flag": "private",
       "creator": "shehzer"
     }

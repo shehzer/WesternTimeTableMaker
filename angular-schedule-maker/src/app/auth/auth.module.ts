@@ -11,8 +11,9 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthorizedComponent } from './authorized/authorized.component';
 
 
+
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, ResetPasswordComponent, PublicComponent, AdminComponent, AuthorizedComponent],
+  declarations: [LoginComponent, RegisterComponent, ResetPasswordComponent, PublicComponent, AdminComponent, AuthorizedComponent, ],
   imports: [
     CommonModule,
     AuthRoutingModule,

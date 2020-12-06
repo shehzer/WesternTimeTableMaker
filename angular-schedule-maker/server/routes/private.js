@@ -156,7 +156,7 @@ router.route('/schedules/:name/')
            
         }
     }
-    res.status(404).send("Error")
+    res.status(404).json("Error")
 
 })
     
@@ -168,10 +168,10 @@ router.post('/schedules/:name/:creator',verify,(req,res)=>{
     for(let i = 0; i<db.getState().schedules.length; i++){
         if(db.getState().schedules[i].scheduleName===sch_name && db.getState().schedules[i].creator===name){
             db.get("schedules").remove({scheduleName: sch_name}).write();
-            res.send("Schedule " + sch_name + " has been deleted")
+            res.json("Schedule " + sch_name + " has been deleted")
         }
     }
-    res.status(404).send("Name doesn't exist")
+    res.status(404).json("Name doesn't exist or you are trying to delete someone else's schedule!!")
     
 });
 
@@ -181,7 +181,7 @@ router.post('/schedules/:name/:creator',verify,(req,res)=>{
 router.post('/deleteall/schedules',verify,(req,res)=>{
     for(let i = 0;i<db.getState().schedules.length;i++){
         db.set('schedules',[]).write();
-        res.send("done")
+        res.json("done")
     }
 });
 
@@ -216,7 +216,7 @@ router.get('/show/creator/:name', verify,(req,res)=>{
         res.send(display)
     }
     else{
-        res.status(404).send("Error") 
+        res.status(404).json("Error") 
     }  
 });
 

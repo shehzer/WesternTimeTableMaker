@@ -129,7 +129,12 @@ export class AuthService {
 
   delete_Schedule(schedule){
     let body = {}
-    return this.http.post(`${this.authorizeUrl}schedules/${schedule}`,body, httpOptions)
+    let jwt = localStorage.getItem('token');
+    let jwtData = jwt.split('.')[1]
+    let decodedJwtJsonData = window.atob(jwtData)
+    let decodedJwtData = JSON.parse(decodedJwtJsonData)
+    let creator = decodedJwtData._username;
+    return this.http.post(`${this.authorizeUrl}schedules/${schedule}/${creator}`,body, httpOptions)
   }
   
 

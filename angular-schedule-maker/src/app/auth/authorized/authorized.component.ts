@@ -20,6 +20,9 @@ export class AuthorizedComponent implements OnInit {
   public list;
   public isbuttonvisible = false;
 
+  
+
+
   constructor(private authService: AuthService,) { }
 
   ngOnInit(): void {
@@ -43,7 +46,13 @@ export class AuthorizedComponent implements OnInit {
   toggleDisplay3(){
     this.isDisplay3 = !this.isDisplay3;
   }
-
+  clickMethod(name: string) {
+    if(confirm("Are you sure to delete "+this.scheduleName)) {
+      this.delete_Schedule();
+      console.log("Implement delete functionality here");
+    }
+  }
+  
 
   //default route , load courses
 getCourses(){
@@ -221,6 +230,22 @@ getSubsandCourse(){
       this.schedules= results;
       console.log(this.schedules)
     })
+  }
+
+
+  delete_Schedule(){
+    this.authService.delete_Schedule(this.scheduleName).subscribe((res:any)=>{
+      if(res.status === 404){
+        document.getElementById('display').textContent = "Schedule Name does not exist!"
+      }
+      console.log(res);
+    
+    }),
+    error => {
+      console.log("Schedule Not deleted");
+      document.getElementById('display').textContent = "Error, please try again!"
+      return Observable.throw(error);
+    }
   }
 
 
