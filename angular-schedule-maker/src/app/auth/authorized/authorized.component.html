@@ -42,7 +42,17 @@
         <h4 class = "h4"> Delete: {{scheduleName}}          </h4>
         <button type=button class="btn btn-primary"  (click)="clickMethod('name')">Delete Schedule</button>
     </div>
+
+    <div>
+        <h4 class = "h4"> Add a review         </h4>
+
+    </div>
     
+    <input type="text" name="sub&course" [(ngModel)]="course" id="review" placeholder="Course Code">
+        <button type=button class="btn btn-primary"  (click)="addReview()">Search course id</button>
+        <input type="text"  placeholder="Add Review">
+        <button type=button class="btn btn-primary"  (click)="clickMethod2('name')">Add this review</button>
+   
 
     <div id="display"></div>
 
@@ -118,6 +128,8 @@
                 <br *ngIf = "!list.collapsed">
                 <mat-card-content *ngIf="!list.collapsed" class = cards> facility_ID: {{list.facility_ID}} </mat-card-content>
                 <br *ngIf = "!list.collapsed">
+                <mat-card-content *ngIf="!list.collapsed" class = cards> Review: {{list.review}} </mat-card-content>
+                <br *ngIf = "!list.collapsed">
                
                 <!-- <button [disabled]= "!token" (click) = "" class = "">Add</button> -->
     
@@ -153,6 +165,26 @@
                     <button mat-button (click) = "list.collapsed = false"> UnCollapse text</button>
                     
                     <button (click) = "toggleDisplay3()"> Hide</button>
+                </mat-card-actions>
+    
+            </mat-card>
+    
+        </div>
+    
+    
+    </div>
+
+    <div class = "card" [hidden] = "isDisplay4">
+    
+        <div *ngFor="let list of review">
+            <mat-card class = "mat-elevation-z5">
+                <mat-card-title > Subject :{{list.subject}}</mat-card-title>
+                <mat-card-content class = cards> Course ID: {{list.catalog_nbr}} </mat-card-content>
+                <br *ngIf = "!list.collapsed">
+                <!-- <button [disabled]= "!token" (click) = "" class = "">Add</button> -->
+    
+                <mat-card-actions>
+                    <button (click) = "toggleDisplay4()"> Hide</button>
                 </mat-card-actions>
     
             </mat-card>

@@ -85,7 +85,8 @@ router.get('/show/schedule', (req,res)=>{
             }
             console.log()
             if(`${db.getState().schedules[i].flag}` == "public"){
-                scheduleList.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}` })
+                scheduleList.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`,
+                "review" : `${db.getState().schedules[i].review}` })
             }
         
         

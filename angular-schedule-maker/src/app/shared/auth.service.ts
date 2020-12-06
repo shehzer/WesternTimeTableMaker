@@ -136,6 +136,11 @@ export class AuthService {
     let creator = decodedJwtData._username;
     return this.http.post(`${this.authorizeUrl}schedules/${schedule}/${creator}`,body, httpOptions)
   }
+
+  addReview(course){
+      return this.http.get(`${this.authorizeUrl}review/${course}`);
+    
+  }
   
 
 

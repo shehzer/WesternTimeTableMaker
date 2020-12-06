@@ -13,6 +13,7 @@ export class AuthorizedComponent implements OnInit {
   public pschedules = [];
   public oneSchedule = [];
   public subject;
+  public review = [];
   public course;
   public flag;
   public component;
@@ -30,7 +31,8 @@ export class AuthorizedComponent implements OnInit {
   isDisplay = false;
   isDisplay1 = false;
   isDisplay2 = false;
-  isDisplay3 = false
+  isDisplay3 = false;
+  isDisplay4 = false
   toggleDisplay(){
     this.isDisplay = !this.isDisplay;
   }
@@ -49,6 +51,13 @@ export class AuthorizedComponent implements OnInit {
   clickMethod(name: string) {
     if(confirm("Are you sure to delete "+this.scheduleName)) {
       this.delete_Schedule();
+      console.log("Implement delete functionality here");
+    }
+  }
+
+  clickMethod2(name: string) {
+    if(confirm("Are you sure to add Review to "+this.scheduleName)) {
+      this.display();
       console.log("Implement delete functionality here");
     }
   }
@@ -218,7 +227,8 @@ getSubsandCourse(){
               "facility_ID":res[i][0].course_info[0].facility_ID,
               "ssr_component":res[i][0].course_info[0].ssr_component,
               "subject": res[i][0].subject,
-              "Flag": res[0].Flag
+              "Flag": res[0].Flag,
+              "review": res[0].review
               
             }
             results.push(info)
@@ -248,6 +258,14 @@ getSubsandCourse(){
     }
   }
 
+
+  addReview(){
+    this.authService.addReview(this.course).subscribe((res:any)=>{
+      this.review = res;
+      document.getElementById('display1').innerHTML = this.makeTable(res);  
+      this.isDisplay1 = false;
+    })
+  }
 
 
   makeTable(D){

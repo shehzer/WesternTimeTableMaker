@@ -30,8 +30,9 @@
       "courseName": [
         "1021b"
       ],
-      "flag": "private",
-      "creator": "Joesph"
+      "flag": "public",
+      "creator": "Joesph",
+      "review": "I hate this course"
     },
     {
       "scheduleName": "jack",

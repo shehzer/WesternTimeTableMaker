@@ -32,7 +32,8 @@ router.put('/schedule/:name', verify, (req,res) =>{
                                   subject: [],
                                   courseName:[],
                                   flag: "private",
-                                  creator: req.user._username}).write();
+                                  creator: req.user._username,
+                                  review: String}).write();
     res.status(200).json("The schedule " + name + " has been created");
 }); 
 
@@ -107,6 +108,27 @@ router.put('/flag/schedule/:name', verify,(req, res) => {
     res.status(404).send("Name does not exist");
 });
 
+router.put('/review/schedule/:name', verify,(req, res) => {
+
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
+    const schedule = req.body;
+    let review = req.sanitize(schedule.review)
+    console.log(schedule)
+    console.log(db.getState().schedules.length)
+    for (let i = 0; i < db.getState().schedules.length; i++) {
+        if (db.getState().schedules[i].scheduleName === name ) {
+                console.log(db.getState().schedules[i])
+                db.getState().schedules[i].review=review
+            db.update('schedules').write();
+            res.status(200).json("Added");
+            break;
+        }
+    }
+
+    res.status(404).send("Name does not exist");
+});
+
 
 
 //Task 8
@@ -138,7 +160,7 @@ router.route('/schedules/:name/')
     for(let i = 0; i<db.getState().schedules.length; i++){
         var size = `${db.getState().schedules[i].courseName.length}`     
         if(db.getState().schedules[i].scheduleName===name){
-            display.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`,"Flag" : `${db.getState().schedules[i].flag}`});
+            display.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`,"Flag" : `${db.getState().schedules[i].flag}`, "review" : `${db.getState().schedules[i].review}`});
             for(let k=0; k<db.getState().schedules[i].courseName.length;k++){
                 let showC = db.getState().schedules[i].courseName[k];
                 console.log(showC)
@@ -219,5 +241,62 @@ router.get('/show/creator/:name', verify,(req,res)=>{
         res.status(404).json("Error") 
     }  
 });
+
+
+router.route('/review/:course',) //api/id:
+
+    .get((req,res) =>{
+        const course = req.sanitize(req.params.course);
+        var exists = data.find(d => d.catalog_nbr === course.toUpperCase());
+        var node = data.filter(function(d){
+            return d.catalog_nbr ===course.toUpperCase();
+        })
+        .map(function(d){
+            var info = {
+                        "subject": d.subject,
+                        "catalog_nbr": d.catalog_nbr,
+                       }
+        return info;
+        });
+        console.log(node);
+        if(exists){
+            res.send(node);
+        }
+        else{
+            res.status(404).send("Course iD " + course + " was not found");
+        }
+
+    })
+
+    router.route('/review/:course',) //api/id:
+
+    .get((req,res) =>{
+        const course = req.sanitize(req.params.course);
+        const comment = req.sanitize(req.params.comment);
+        var exists = data.find(d => d.catalog_nbr === course.toUpperCase());
+        var node = data.filter(function(d){
+            return d.catalog_nbr ===course.toUpperCase();
+        })
+        .map(function(d){
+            var info = {
+                        "subject": d.subject,
+                        "catalog_nbr": d.catalog_nbr,
+                        "review": comment
+                       }
+        return info;
+        });
+        console.log(node);
+        if(exists){
+            res.send(node);
+        }
+        else{
+            res.status(404).send("Course iD " + course + " was not found");
+        }
+
+    })
+
+    
+    
+
 
 module.exports = router;

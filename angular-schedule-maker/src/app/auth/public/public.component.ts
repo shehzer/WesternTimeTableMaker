@@ -143,7 +143,7 @@ display(){
     var exists = 
     res.map(function(d){
       console.log(res[1])
-      if(i<=2){
+      if(i<res.length){
         var info = {
 
             "Creator": res[0].Creator,
@@ -152,6 +152,7 @@ display(){
             "catalog_description": res[i][0].catalog_description,
             "catalog_nbr": res[i][0].catalog_nbr,
             "subject": res[i][0].subject,
+            "review": res[0].review
             
           }
           results.push(info)
