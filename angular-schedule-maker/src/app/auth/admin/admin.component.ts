@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth.service';
-
+import {AlertService} from 'ngx-alerts'
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -11,7 +11,8 @@ public username
 public users = [];
 isDisplay2 = false
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +23,7 @@ isDisplay2 = false
 
   getUserinfo(){
     this.authService.userInfo(this.username).subscribe((res:any) => {
+      this.alertService.success('Found!');
       console.log(res);
       var results = []
       results.push(res);
@@ -41,6 +43,9 @@ isDisplay2 = false
       this.users = exists;
       console.log(this.users)    
   }); 
+  this.alertService.warning('Finding user..');
+   
+
 }
 
 changeRole(){

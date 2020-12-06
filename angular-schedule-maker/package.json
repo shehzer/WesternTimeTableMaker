@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "mdbootstrap": "^4.19.2",
+    "ngx-alerts": "^10.1.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

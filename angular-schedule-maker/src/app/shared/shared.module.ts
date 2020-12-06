@@ -8,8 +8,7 @@ import { RouterModule } from '@angular/router';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
-
+import { AlertModule } from 'ngx-alerts';
 
 // import { AlertModule } from 'ngx-alerts';
 // import { BsDropdownModule } from 'ngx-bootstrap';
@@ -23,7 +22,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     // NgProgressModule,
     BrowserAnimationsModule,
     BrowserModule,
-    RouterModule
+    RouterModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 5000, positionX: 'right'})
   
     // BsDropdownModule.forRoot(),
 

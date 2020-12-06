@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth.service';
 import {NgForm} from '@angular/forms';
+import {AlertService} from 'ngx-alerts'
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -8,13 +9,15 @@ import {NgForm} from '@angular/forms';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,   private alertService: AlertService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(f: NgForm) {
+    this.alertService.info('Updating...');
     this.authService.update(f.value).subscribe((res:any)=>{
+      this.alertService.success('Updated!');
       console.log(res);
     }),
     error => {
