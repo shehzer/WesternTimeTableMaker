@@ -127,6 +127,10 @@ export class AuthService {
     return this.http.put(`${this.authorizeUrl}create/schedule/${name}`,info,httpOptions);
   }
 
+  delete_Schedule(schedule){
+    let body = {}
+    return this.http.post(`${this.authorizeUrl}schedules/${schedule}`,body, httpOptions)
+  }
   
 
 

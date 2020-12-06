@@ -159,11 +159,14 @@ router.route('/schedules/:name/')
     res.status(404).send("Error")
 
 })
-    .post(verify,(req,res)=>{
+    
+router.post('/schedules/:name/:creator',verify,(req,res)=>{
     var sch_name = req.sanitize(req.params.name);
     sch_name = escapeHTML(sch_name)
+    var name = req.sanitize(req.params.creator);
+    name = escapeHTML(name);
     for(let i = 0; i<db.getState().schedules.length; i++){
-        if(db.getState().schedules[i].scheduleName===sch_name){
+        if(db.getState().schedules[i].scheduleName===sch_name && db.getState().schedules[i].creator===name){
             db.get("schedules").remove({scheduleName: sch_name}).write();
             res.send("Schedule " + sch_name + " has been deleted")
         }
@@ -171,6 +174,7 @@ router.route('/schedules/:name/')
     res.status(404).send("Name doesn't exist")
     
 });
+
 
 
 //Task 9
