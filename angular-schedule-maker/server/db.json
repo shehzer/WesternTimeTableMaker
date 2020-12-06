@@ -1,16 +1,31 @@
 {
   "schedules": [
     {
-      "scheduleName": "shehzer",
-      "subject": [],
-      "courseName": [],
-      "flag": "public",
+      "scheduleName": "1",
+      "subject": [
+        "actursci"
+      ],
+      "courseName": [
+        "1021b"
+      ],
+      "flag": "private",
       "creator": "Joesph"
     },
     {
-      "scheduleName": "l",
+      "scheduleName": "2",
       "subject": [
-        "Actursci"
+        "se"
+      ],
+      "courseName": [
+        "3316A"
+      ],
+      "flag": "private",
+      "creator": "Joesph"
+    },
+    {
+      "scheduleName": "n",
+      "subject": [
+        "actursci"
       ],
       "courseName": [
         "1021b"
@@ -21,23 +36,31 @@
     {
       "scheduleName": "jack",
       "subject": [
-        "Actursci"
+        "SE"
       ],
       "courseName": [
-        "1021b"
+        "3316"
       ],
+      "flag": "public",
       "creator": "Joesph"
     },
     {
-      "scheduleName": "d",
+      "scheduleName": "joe",
+      "subject": [],
+      "courseName": [],
+      "flag": "private",
+      "creator": "Joesph"
+    },
+    {
+      "scheduleName": "m",
       "subject": [
         "actursci"
       ],
       "courseName": [
         "1021b"
       ],
-      "flag": "public",
-      "creator": "Joesph"
+      "flag": "private",
+      "creator": "shehzer"
     }
   ]
 }

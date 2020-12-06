@@ -37,7 +37,7 @@ router.put('/schedule/:name', verify, (req,res) =>{
 }); 
 
 //task 5 adds course to given schedule
-router.put('/create/schedule/:name', (req, res) => {
+router.put('/create/schedule/:name',verify, (req, res) => {
 
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
@@ -85,7 +85,7 @@ router.put('/create/schedule/:name', (req, res) => {
 });
 
 
-router.put('/flag/schedule/:name', (req, res) => {
+router.put('/flag/schedule/:name', verify,(req, res) => {
 
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
@@ -110,7 +110,7 @@ router.put('/flag/schedule/:name', (req, res) => {
 
 
 //Task 8
-router.get('/show/schedule', (req,res)=>{
+router.get('/show/schedule', verify,(req,res)=>{
     let scheduleList=[];
     for(let i = 0; i<db.getState().schedules.length; i++){
         console.log(db.getState().schedules[i].courseName.length)
@@ -130,7 +130,7 @@ router.get('/show/schedule', (req,res)=>{
 
 router.route('/schedules/:name/')
 
-    .get((req,res)=>{
+    .get(verify,(req,res)=>{
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
     let display = [];
@@ -159,7 +159,7 @@ router.route('/schedules/:name/')
     res.status(404).send("Error")
 
 })
-    .post((req,res)=>{
+    .post(verify,(req,res)=>{
     var sch_name = req.sanitize(req.params.name);
     sch_name = escapeHTML(sch_name)
     for(let i = 0; i<db.getState().schedules.length; i++){
@@ -174,11 +174,46 @@ router.route('/schedules/:name/')
 
 
 //Task 9
-router.post('/deleteall/schedules',(req,res)=>{
+router.post('/deleteall/schedules',verify,(req,res)=>{
     for(let i = 0;i<db.getState().schedules.length;i++){
         db.set('schedules',[]).write();
         res.send("done")
     }
+});
+
+
+//show schedules created by me
+router.get('/show/creator/:name', verify,(req,res)=>{
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
+    let display = [];
+    for(let i = 0; i<db.getState().schedules.length; i++){
+        var size = `${db.getState().schedules[i].courseName.length}`
+        
+
+     
+        if(db.getState().schedules[i].creator===name){
+            display.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`});
+            for(let k=0; k<db.getState().schedules[i].courseName.length;k++){
+                let showC = db.getState().schedules[i].courseName[k];
+                console.log(showC)
+                let showS = db.getState().schedules[i].subject[k];
+                console.log(showS)
+                const course = data.filter(a => a.subject.toString().toLowerCase()=== req.sanitize(showS.toString().toLowerCase()));
+                console.log(course)
+                const final = course.filter(a => a.catalog_nbr.toString().toUpperCase() === req.sanitize(showC.toString().toUpperCase()));
+                console.log(final)
+                display.push(final);
+                console.log(display);
+            } 
+        }
+    }
+    if(display.length != 0){
+        res.send(display)
+    }
+    else{
+        res.status(404).send("Error") 
+    }  
 });
 
 module.exports = router;

@@ -10,6 +10,7 @@ export class AuthorizedComponent implements OnInit {
   public scheduleName;
   public data = [];
   public schedules = [];
+  public pschedules = [];
   public oneSchedule = [];
   public subject;
   public course;
@@ -25,7 +26,8 @@ export class AuthorizedComponent implements OnInit {
   }
   isDisplay = false;
   isDisplay1 = false;
-  isDisplay2 = false
+  isDisplay2 = false;
+  isDisplay3 = false
   toggleDisplay(){
     this.isDisplay = !this.isDisplay;
   }
@@ -37,6 +39,11 @@ export class AuthorizedComponent implements OnInit {
   toggleDisplay2(){
     this.isDisplay2 = !this.isDisplay2;
   }
+
+  toggleDisplay3(){
+    this.isDisplay3 = !this.isDisplay3;
+  }
+
 
   //default route , load courses
 getCourses(){
@@ -142,7 +149,45 @@ getSubsandCourse(){
       console.log(res)
     })
   }
+
+  private_List(){
+    this.authService.private_list().subscribe((res:any)=>{
+      console.log(res);
+      this.isDisplay3 = false;
+      var results = []
+      let i =0;
+      let j=0;
+      var exists = 
+      res.map(function(d){
+        console.log(res[1])
+    
+        if(i<res.length){
+          var info = {
+    
+              "Creator": res[i].Creator,
+              "Numcourses": res[i].Numcourses,
+              "scheduleName": res[i].scheduleName,
+              "catalog_description": res[j+1][0].catalog_description,
+              "catalog_nbr": res[j+1][0].catalog_nbr,
+              "subject": res[j+1][0].subject,
+              
+            }
+            results.push(info)
+            i++; 
+          }
+        return info;     
+           
+      });
+      console.log(exists);
+      this.pschedules= results;
+  
+    console.log(this.pschedules)
+    
+      
+    })
+  }
   display(){
+    this.isDisplay2 = false;
     this.authService.display(this.scheduleName).subscribe((res:any)=>{
       console.log(res)
       var results = []
@@ -158,6 +203,11 @@ getSubsandCourse(){
               "Numcourses": res[0].Numcourses,
               "scheduleName": res[0].scheduleName,
               "catalog_nbr": res[i][0].catalog_nbr,
+              "className":res[i][0].className,
+              "campus":res[i][0].course_info[0].campus,
+              "descr":res[i][0].course_info[0].descr,
+              "facility_ID":res[i][0].course_info[0].facility_ID,
+              "ssr_component":res[i][0].course_info[0].ssr_component,
               "subject": res[i][0].subject,
               "Flag": res[0].Flag
               

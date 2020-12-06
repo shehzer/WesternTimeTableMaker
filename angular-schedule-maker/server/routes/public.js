@@ -74,7 +74,7 @@ router.route('/:data_subject',) //api/id:
 router.get('/show/schedule', (req,res)=>{
     let scheduleList=[];
     for(let i = 0; i<db.getState().schedules.length; i++){
-        
+        console.log(db.getState().schedules[i])
       
         var size = `${db.getState().schedules[i].courseName.length}`
             if(size <0){
@@ -129,5 +129,8 @@ router.route('/schedules/:name/')
     res.status(404).send("Error")
 
 })
+
+
+
 
     module.exports = router;

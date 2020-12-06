@@ -21,6 +21,7 @@ export class AuthService {
   publicList = "http://localhost:4000/api/public/show/schedule";
   authorizeUrl = " http://localhost:4000/api/secure/";
   adminUrl = " http://localhost:4000/api/admin/";
+  privateList = " http://localhost:4000/api/secure/show/creator"
 
   constructor(private http: HttpClient) { }
 
@@ -100,8 +101,17 @@ export class AuthService {
     return this.http.get(`${this.publicList}`)
   }
 
+  private_list(){
+    let jwt = localStorage.getItem('token');
+    let jwtData = jwt.split('.')[1]
+    let decodedJwtJsonData = window.atob(jwtData)
+    let decodedJwtData = JSON.parse(decodedJwtJsonData)
+    let creator = decodedJwtData._username;
+    return this.http.get(`${this.privateList}/${creator}`, httpOptions)
+  }
+
   display(schedule){
-    return this.http.get(`${this.authorizeUrl}schedules/${schedule}`)
+    return this.http.get(`${this.authorizeUrl}schedules/${schedule}`, httpOptions)
   }
   createSchedule(schedule){
     let body = {};
