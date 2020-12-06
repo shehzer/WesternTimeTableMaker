@@ -55,6 +55,7 @@ export class AuthService {
     let body = {};
     return this.http.put(this.adminUrl + `change/${username}`, body, httpOptions );
   }
+
   
   changeAdmin(username){
     let body = {};
@@ -106,6 +107,10 @@ export class AuthService {
     let body = {};
     return this.http.put(this.authorizeUrl + `schedule/${schedule}`, body, httpOptions );
     //'/schedule/:name'
+  }
+
+  changeFlag(schedule, info:object){
+    return this.http.put(this.authorizeUrl + `flag/schedule/${schedule}`, info, httpOptions );
   }
 
   add_new(name:string, info:object){

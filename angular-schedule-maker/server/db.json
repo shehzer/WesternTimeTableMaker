@@ -1,16 +1,42 @@
 {
   "schedules": [
     {
-      "scheduleName": "test4",
+      "scheduleName": "shehzer",
+      "subject": [],
+      "courseName": [],
+      "flag": "public",
+      "creator": "Joesph"
+    },
+    {
+      "scheduleName": "l",
       "subject": [
-        "Actursci",
-        "SE"
+        "Actursci"
       ],
       "courseName": [
-        "1021b",
-        "3316a"
+        "1021b"
       ],
       "flag": "private",
+      "creator": "Joesph"
+    },
+    {
+      "scheduleName": "jack",
+      "subject": [
+        "Actursci"
+      ],
+      "courseName": [
+        "1021b"
+      ],
+      "creator": "Joesph"
+    },
+    {
+      "scheduleName": "d",
+      "subject": [
+        "actursci"
+      ],
+      "courseName": [
+        "1021b"
+      ],
+      "flag": "public",
       "creator": "Joesph"
     }
   ]

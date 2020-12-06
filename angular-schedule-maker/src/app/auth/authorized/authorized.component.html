@@ -12,8 +12,10 @@
 
 
     <input type="text" name="sub&course" [(ngModel)]="course" id="course" placeholder="Course Code">
-
     <button (click)=" getSubsandCourse()" class="label2">Search</button>
+
+    <input type="text" name="flag" [(ngModel)]="flag" placeholder="set visibility">
+    <button (click)="changeFlag()" class="label1">Set flag</button>
 
     <!-- <div>
             <h4 class = "h4"> Display: {{scheduleName}}          </h4>
@@ -33,6 +35,7 @@
         <button class ="but" (click)="add_new()"> Add a subject and course</button>
         <h4> Selected Subject code: {{subject}}</h4>
         <h4> Selected Course code: {{course}}</h4>
+        <h4> Selected flag code: {{flag}}</h4>
     </div>
 
     <input type="text" name="scheduleName" [(ngModel)]="scheduleName" placeholder="Search a schedule">
@@ -93,7 +96,7 @@
                 <br *ngIf = "!list.collapsed">
                 <mat-card-content class = cards> Number of Courses: {{list.Numcourses}} </mat-card-content>
                 <br *ngIf = "!list.collapsed">
-                <mat-card-content *ngIf="!list.collapsed" class = cards> description: {{list.catalog_description}} </mat-card-content>
+                <mat-card-content *ngIf="!list.collapsed" class = cards> Flag: {{list.Flag}} </mat-card-content>
                 <br *ngIf = "!list.collapsed">
                 <mat-card-content *ngIf="!list.collapsed" class = cards> Subject: {{list.subject}} </mat-card-content>
                 <br *ngIf = "!list.collapsed">

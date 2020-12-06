@@ -13,6 +13,7 @@ export class AuthorizedComponent implements OnInit {
   public oneSchedule = [];
   public subject;
   public course;
+  public flag;
   public component;
   public info = {};
   public list;
@@ -124,6 +125,7 @@ getSubsandCourse(){
     console.log(this.scheduleName);
     this.authService.add_new(this.scheduleName, this.info).subscribe((res:any)=>{
       console.log(res);
+       document.getElementById('display').textContent = res
 
     }),
     error =>{
@@ -132,6 +134,14 @@ getSubsandCourse(){
     }
   }
 
+  changeFlag(){
+    this.info = {
+      "flag": this.flag
+    }
+    this.authService.changeFlag(this.scheduleName, this.info).subscribe((res:any)=>{
+      console.log(res)
+    })
+  }
   display(){
     this.authService.display(this.scheduleName).subscribe((res:any)=>{
       console.log(res)
@@ -149,6 +159,7 @@ getSubsandCourse(){
               "scheduleName": res[0].scheduleName,
               "catalog_nbr": res[i][0].catalog_nbr,
               "subject": res[i][0].subject,
+              "Flag": res[0].Flag
               
             }
             results.push(info)

@@ -85,6 +85,29 @@ router.put('/create/schedule/:name', (req, res) => {
 });
 
 
+router.put('/flag/schedule/:name', (req, res) => {
+
+    var name = req.sanitize(req.params.name);
+    name = escapeHTML(name);
+    const schedule = req.body;
+    let flag = req.sanitize(schedule.flag)
+    console.log(flag)
+    console.log(schedule)
+    console.log(db.getState().schedules.length)
+    for (let i = 0; i < db.getState().schedules.length; i++) {
+        if (db.getState().schedules[i].scheduleName === name ) {
+                console.log(db.getState().schedules[i])
+                db.getState().schedules[i].flag=flag
+            db.update('schedules').write();
+            res.status(200).json("Added");
+            break;
+        }
+    }
+
+    res.status(404).send("Name does not exist");
+});
+
+
 
 //Task 8
 router.get('/show/schedule', (req,res)=>{
@@ -113,11 +136,9 @@ router.route('/schedules/:name/')
     let display = [];
     
     for(let i = 0; i<db.getState().schedules.length; i++){
-        var size = `${db.getState().schedules[i].courseName.length}`
-        display.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`});
-
-     
+        var size = `${db.getState().schedules[i].courseName.length}`     
         if(db.getState().schedules[i].scheduleName===name){
+            display.push({"scheduleName": `${db.getState().schedules[i].scheduleName}`, "Numcourses" : `${size}`, "Creator" : `${db.getState().schedules[i].creator}`,"Flag" : `${db.getState().schedules[i].flag}`});
             for(let k=0; k<db.getState().schedules[i].courseName.length;k++){
                 let showC = db.getState().schedules[i].courseName[k];
                 console.log(showC)
