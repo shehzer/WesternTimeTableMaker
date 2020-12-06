@@ -10,11 +10,11 @@ const { valid } = require('@hapi/joi');
     router.post('/register', async (req,res)=> {
         //Validate Response
         const {error} = registerValidation(req.body);
-        if(error) return res.status(400).json(error.details[0].message);
+        if(error) return res.status(400).send(error.details[0].message);
 
         //Check if user is already registered
         const emailExists = await User.findOne({email: req.body.email});
-        if(emailExists) return res.status(400).json('Email Already exists');
+        if(emailExists) return res.status(400).send('Email Already exists');
 
 
         //HASH PASS
@@ -33,7 +33,7 @@ const { valid } = require('@hapi/joi');
             const savedUser = await user.save();
             res.send({user: user._id});
         } catch(err){
-            res.status(400).json(err);
+            res.status(400).send(err);
         }
     });
 

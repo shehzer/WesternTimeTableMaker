@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import {map} from 'rxjs/operators';
+
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json',
@@ -28,8 +29,11 @@ export class AuthService {
   
 
   login(model: any){
-
-    return this.http.post(`${this.authUrl}login`,model, httpOptions)
+    if(this.isActive()){
+      return this.http.post(`${this.authUrl}login`,model, httpOptions)
+    }
+     
+    
   }
 
   loggedIn(){
@@ -47,6 +51,19 @@ export class AuthService {
     }
     else return false;
   }
+
+  isActive(){
+    let jwt = localStorage.getItem('token');
+    let jwtData = jwt.split('.')[1]
+    let decodedJwtJsonData = window.atob(jwtData)
+    let decodedJwtData = JSON.parse(decodedJwtJsonData)
+    let isActive = decodedJwtData._active;
+    if(isActive=== "active"){
+        return true;
+    }
+    else return false;
+  }
+
 
   userInfo(username){
     return this.http.get(`${this.adminUrl}userinfo/${username}`, httpOptions);
@@ -74,7 +91,7 @@ export class AuthService {
   }
 
   register(model:any){
-    return this.http.post(`${this.authUrl}register`, model, httpOptions);
+    return this.http.post(`${this.authUrl}register`, model);
   }
 
   update(model:any){

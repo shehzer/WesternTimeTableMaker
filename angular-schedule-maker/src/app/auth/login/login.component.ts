@@ -21,6 +21,16 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
+
+    let jwt = localStorage.getItem('token');
+    let jwtData = jwt.split('.')[1]
+    let decodedJwtJsonData = window.atob(jwtData)
+    let decodedJwtData = JSON.parse(decodedJwtJsonData)
+    let isActive = decodedJwtData._active;
+    if(isActive=== "deactivated"){
+      this.alertService.warning('Account is deactivated talk to admin');
+
+    }
     this.alertService.info('Checking User Info');
     this.authService.login(f.value).subscribe((res:any)=>{
       this.loggedIn = false;
