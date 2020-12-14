@@ -1,61 +1,37 @@
 {
   "schedules": [
     {
-      "scheduleName": "1",
+      "scheduleName": "hi",
       "subject": [
         "actursci"
       ],
       "courseName": [
         "1021b"
       ],
-      "flag": "private",
-      "creator": "Joesph"
+      "flag": "public",
+      "creator": "Admin"
     },
     {
-      "scheduleName": "2",
+      "scheduleName": "ni",
       "subject": [
-        "se",
-        "SE"
+        "actursci"
       ],
       "courseName": [
-        "3316A",
-        "2202A"
+        "1021b"
       ],
-      "flag": "private",
-      "creator": "Joesph"
-    },
-    {
-      "scheduleName": "n",
-      "subject": "actursci",
-      "courseName": "1021b",
       "flag": "public",
-      "creator": "Joesph",
-      "review": "I hate this course"
+      "creator": "Admin"
     },
     {
-      "scheduleName": "jack",
+      "scheduleName": "newest",
       "subject": [
-        "SE"
+        "actursci"
       ],
       "courseName": [
-        "3316"
+        "1021b"
       ],
       "flag": "public",
-      "creator": "Joesph"
-    },
-    {
-      "scheduleName": "joe",
-      "subject": [],
-      "courseName": [],
-      "flag": "private",
-      "creator": "Joesph"
-    },
-    {
-      "scheduleName": "f",
-      "subject": [],
-      "courseName": [],
-      "flag": "private",
-      "creator": "shehzer"
+      "creator": "Admin"
     }
   ]
 }

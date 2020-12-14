@@ -138,9 +138,17 @@ getSubsandCourseandComp(){
 list_Schedules(){
   this.authService.list_Schedules().subscribe((res:any)=>{
     console.log(res);
+    console.log(res.reverse())
+    console.log(res[res.length-1])
+    var array1 = [];
     this.isDisplay2 = false;
-
-  this.schedules = res;
+    for(var i = res.length-1; i>=0; i-- ){
+      console.log(res[i]);
+      array1.push[res[i]];
+      console.log(array1)
+    }
+    console.log(array1)
+    this.schedules = res;
 
   console.log(this.schedules)
   
