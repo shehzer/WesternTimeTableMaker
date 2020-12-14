@@ -19,6 +19,9 @@ router.use(expressSanitizer());
 router.put('/schedule/:name', verify, (req,res) =>{
     var name = req.sanitize(req.params.name);
     name = escapeHTML(name);
+    if(name.length > 10){
+        res.status(404).send("Error");
+    }
     escape(name);
     //check if the name already exists, if so then return error
     for(var i=0; i<db.getState().schedules.length;i++){

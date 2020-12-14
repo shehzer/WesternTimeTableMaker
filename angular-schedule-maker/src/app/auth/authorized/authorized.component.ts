@@ -213,7 +213,7 @@ getSubsandCourse(){
       var exists = 
       res.map(function(d){
         console.log(res.length)
-        console.log(res[1][0].catalog_nbr)
+       // console.log(res[1][0].catalog_nbr)
         if(i<res.length){
           var info = {
   

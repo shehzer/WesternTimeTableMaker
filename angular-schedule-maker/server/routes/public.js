@@ -7,6 +7,7 @@ var escapeHTML = require('escape-html');
 db.defaults({schedules:[]}).write();
 const expressSanitizer = require('express-sanitizer');
 var data = require('../data.json');
+var stringSimilarity = require('string-similarity');
 
 
 router.use(expressSanitizer());
@@ -49,7 +50,15 @@ router.route('/:data_subject',) //api/id:
             res.send(node);
         }
         else{
-            res.status(404).send("Subject " + subject + " was not found");
+            arr = [];
+            data.map(function(d){
+                arr.push(d.className.toString());
+            })
+            var result = stringSimilarity.findBestMatch(subject.toString(),arr);
+            console.log(result);
+            console.log(result.bestMatch.target);
+            res.send(result);
+         //res.status(404).send("Subject " + subject + " was not found");
         }
 
     })

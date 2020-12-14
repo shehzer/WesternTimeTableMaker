@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { error } from 'protractor';
+import { catchError } from 'rxjs/operators';
 
 
 
@@ -29,11 +32,7 @@ export class AuthService {
   
 
   login(model: any){
-    if(this.isActive()){
-      return this.http.post(`${this.authUrl}login`,model, httpOptions)
-    }
-     
-    
+      return this.http.post(`${this.authUrl}login`,model, httpOptions).pipe(catchError(this.handleError));
   }
 
   loggedIn(){
@@ -91,7 +90,16 @@ export class AuthService {
   }
 
   register(model:any){
-    return this.http.post(`${this.authUrl}register`, model);
+    return this.http.post(`${this.authUrl}register`, model).pipe(catchError(this.handleError));
+  }
+
+  handleError(err){
+    if(err instanceof HttpErrorResponse){
+
+    } else{
+
+    }
+    return throwError(err);
   }
 
   update(model:any){

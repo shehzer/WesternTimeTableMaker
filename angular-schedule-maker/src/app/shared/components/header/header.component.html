@@ -43,6 +43,13 @@
             [routerLink]="['public']"
             routerLinkActive="active">public</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+            [routerLink]="['login']"
+            routerLinkActive="active"
+            (click)="logout()">Logout</a>
+        </li>
       </ul>
     </div>
   </nav>

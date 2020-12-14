@@ -14,22 +14,20 @@
     {
       "scheduleName": "2",
       "subject": [
-        "se"
+        "se",
+        "SE"
       ],
       "courseName": [
-        "3316A"
+        "3316A",
+        "2202A"
       ],
       "flag": "private",
       "creator": "Joesph"
     },
     {
       "scheduleName": "n",
-      "subject": [
-        "actursci"
-      ],
-      "courseName": [
-        "1021b"
-      ],
+      "subject": "actursci",
+      "courseName": "1021b",
       "flag": "public",
       "creator": "Joesph",
       "review": "I hate this course"

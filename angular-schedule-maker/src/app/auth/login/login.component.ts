@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import {AlertService} from 'ngx-alerts'
+import { throwError } from 'rxjs';
 
 
 @Component({
@@ -21,34 +22,28 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
+    localStorage.setItem('token',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmNiY2ZlM2YzMTQ2YzY4NDU4OTQxODUiLCJfdXNlcm5hbWUiOiJKYWNreSIsIl9yb2xlIjoiTUFOQUdFUiIsIl9hY3RpdmUiOiJkZWFjdGl2YXRlZCIsIl9lbWFpbCI6ImpvZXNwaEBnbWFpbC5jb20iLCJpYXQiOjE2MDcyMzM4OTl9.brkOmiESYffOkYzAot07AV-4Xry07hVMWAduaxC50L8")
 
-    let jwt = localStorage.getItem('token');
-    let jwtData = jwt.split('.')[1]
-    let decodedJwtJsonData = window.atob(jwtData)
-    let decodedJwtData = JSON.parse(decodedJwtJsonData)
-    let isActive = decodedJwtData._active;
-    if(isActive=== "deactivated"){
-      this.alertService.warning('Account is deactivated talk to admin');
-
-    }
     this.alertService.info('Checking User Info');
     this.authService.login(f.value).subscribe((res:any)=>{
-      this.loggedIn = false;
-      console.log(this.loggedIn)
-      console.log(res);
-      console.log(res._role);
-      this.alertService.success('Logged In');
+      console.log(res)
       localStorage.setItem('token',res)
-      this._router.navigate(['authorized'])
+      let jwt = localStorage.getItem('token');
+      let jwtData = jwt.split('.')[1]
+      let decodedJwtJsonData = window.atob(jwtData)
+      let decodedJwtData = JSON.parse(decodedJwtJsonData)
+      let isActive = decodedJwtData._active;
+      if(isActive=== "deactivated"){
+        this.loggedIn = false;
+        this.alertService.warning('Account is deactivated talk to admin');
+      }
+      else{
+        this.alertService.success('Logged In!');
+        this._router.navigate(['authorized'])
+      }
     })
-    console.log(this.loggedIn)
-   if(this.loggedin()){
-    this.alertService.warning('Check username or Password');
-   }
+    if(this.loggedIn == true){
+      this.alertService.warning('Invalid credentials');
+    }
   }
-
-  loggedin(){
-    return this.loggedIn == true;
-  }
-
 }

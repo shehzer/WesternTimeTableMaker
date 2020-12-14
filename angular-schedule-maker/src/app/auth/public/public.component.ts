@@ -1,3 +1,4 @@
+import { IfStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth.service';
 
@@ -51,10 +52,22 @@ getSubject(){
   this.authService.getSubject(this.subject.toUpperCase()).subscribe((res: any) =>{
     this.isDisplay1 = false;
     console.log(res);
-    console.log(this.data)
-    document.getElementById('display1').innerHTML = this.makeTable(res);    
-    console.log(this.makeTable(res));
-    
+      // this.data = res.bestMatch.target;
+      console.log(res.hasOwnProperty('bestMatch'))
+    if(res.hasOwnProperty('bestMatch')){
+      this.data = res.bestMatch.target;
+      var results = [];
+      results.push(this.data)
+      document.getElementById('display').innerHTML = "Closest Matched ClassName: " + results + " Catalog_nbr 1021B";   
+    }
+    else{
+      console.log(this.data)
+       
+      document.getElementById('display1').innerHTML = this.makeTable(res);    
+      console.log(this.makeTable(res));
+
+    }
+   
 
   })
 }
